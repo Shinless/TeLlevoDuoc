@@ -44,10 +44,10 @@ export class LoginPage implements OnInit {
           }
         }
         if(this.listUser[i].type == 'C'){
-          let sendInfo = this.route.navigate(['/User'], userInfoSend);
+          let sendInfo = this.route.navigate(['/user'], userInfoSend);
           return true;
         }else{
-          let sendInfo = this.route.navigate(['/User'], userInfoSend);
+          let sendInfo = this.route.navigate(['/user'], userInfoSend);
           return true;
         }
       }
