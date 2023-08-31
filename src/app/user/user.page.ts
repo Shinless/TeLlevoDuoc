@@ -11,7 +11,7 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker }
 })
 export class UserPage implements OnInit {
 
-  @ViewChild('map', { static: false })
+  @ViewChild('map', { static: true })
   mapElementRef!: ElementRef; //Se crea una variable para guardar el elemento del mapa
   googleMaps: any; //Se crea una variable para guardar el modulo de google
   center = { lat: 18.5204, lng: 73.8567 }; //Se crea una variable para guardar la ubicacion del mapa

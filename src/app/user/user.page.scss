@@ -17,13 +17,14 @@
     color: primary;
     margin-bottom: 20px;
 }
-.mapa{
+.map{
     position: absolute;
     width: 50%;
     height: 50%;
     background-color: transparent;
     opacity: 0;
     transition: opacity 150ms ease-in;
+    margin: 0 auto; /* Center horizontally */
 }
 .map.visible{
     opacity: 1;
