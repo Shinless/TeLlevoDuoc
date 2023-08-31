@@ -1,17 +1,14 @@
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu Te Llevo Duoc</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">This is the menu content.</ion-content>
-</ion-menu>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Te Llevo Duoc</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
       <ion-title>Te Llevo Duoc</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -22,6 +19,12 @@
       
     <div>
       <ion-img class="profile-picture" src="assets/img/user_male_avatar.svg"></ion-img>
+    </div>
+    <div>
+      <ion-button  class="botones-viajes" shape="round" color="primary"><ion-icon name="people-circle-outline"></ion-icon> Crear Viaje</ion-button>
+    </div>
+    <div>
+      <ion-button  class="botones-viajes" shape="round"> <ion-icon name="car-sport-outline"></ion-icon> Buscar Viaje</ion-button>
     </div>
   </ion-content>
 </div>
