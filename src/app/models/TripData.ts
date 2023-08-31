@@ -1,3 +1,5 @@
+import { UserData } from "./UserData";
+
 export class TripData{
     constructor(
         public user_email: string, //Para servir de PK
@@ -6,6 +8,7 @@ export class TripData{
         public seats: number, //Cantidad de asientos disponibles
         public passenger_price: number, //Precio por pasajero, puede ser 0
         public destiny: number, //lugar del destino
+        public Passengers: Array<UserData>, //Lista de pasajeros
     ){
         
     }
