@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
     new UserData('Vielka','Haley','venenatis.vel@aol.net','P','Brody T. Mcclure'),
     new UserData('Ezekiel','Mcknight','montes.nascetur.ridiculus@yahoo.ca','C','Lucius I. Schneider'),
     new UserData('Hayden','Howell','lectus.cum.sociis@protonmail.ca','C','Jolie P. Atkinson'),
+    new UserData('Esteban','Rojas','admin','P','admin'),
   ];
 
   userLoginModal: UserLogin = {

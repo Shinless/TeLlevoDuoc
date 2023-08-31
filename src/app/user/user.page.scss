@@ -17,3 +17,14 @@
     color: primary;
     margin-bottom: 20px;
 }
+.mapa{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+}
+.map.visible{
+    opacity: 1;
+}
