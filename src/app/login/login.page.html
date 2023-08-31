@@ -27,7 +27,7 @@
       <ion-col size-sm="10" size-md="8" size-lg="6">
         <ion-item>
           <ion-icon name="person" class="icon-login"></ion-icon> 
-          <ion-input name="user" type="text" required placeholder=" Usuario"></ion-input>
+          <ion-input name="user" [(ngModel)]="userLoginModal.email"  type="text" required placeholder=" Usuario"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -35,13 +35,13 @@
       <ion-col size-sm="10" size-md="8" size-lg="6">
         <ion-item>
           <ion-icon name="lock-closed-outline"></ion-icon> 
-          <ion-input name="password" type="password" required placeholder="Contraseña"></ion-input>
+          <ion-input name="password" [(ngModel)]="userLoginModal.password" type="password" required placeholder="Contraseña"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="10" size-md="8" size-lg="6">
-        <ion-button type="submit" fill="solid" expand="full" class="buton-menu">
+        <ion-button (click)="userLogin(userLoginModal)" type="submit" fill="solid" expand="full" class="buton-menu">
           Entrar
         </ion-button>
       </ion-col>
