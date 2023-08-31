@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="center">
+      <ion-icon name="car-outline"></ion-icon> <ion-title size="large">¿A donde Vas?</ion-title>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      
+    </ion-toolbar>
+  </ion-header>
+  <h1 class="center">Iniciar Sesión</h1>
+  <ion-img class="perfil-icon"
+  src="./assets/img/logo.png"
+  alt="Imagen de perfil"
+  
+></ion-img>
+
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="10" size-md="8" size-lg="6">
+        <ion-item>
+          <ion-icon name="person" class="icon-login"></ion-icon> 
+          <ion-input name="user" type="text" required placeholder=" Usuario"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="10" size-md="8" size-lg="6">
+        <ion-item>
+          <ion-icon name="lock-closed-outline"></ion-icon> 
+          <ion-input name="password" type="password" required placeholder="Contraseña"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="10" size-md="8" size-lg="6">
+        <ion-button type="submit" fill="solid" expand="full" class="buton-menu">
+          Entrar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="10" size-md="8" size-lg="6">
+        <ion-button expand="full" fill="clear" class="buton-menu">
+          Registrarse
+        </ion-button>
+      </ion-col>
+      <ion-col size-sm="10" size-md="8" size-lg="6">
+        <ion-button expand="full" fill="clear" class="buton-menu">
+          ¿Olvidaste tu Contraseña?
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
