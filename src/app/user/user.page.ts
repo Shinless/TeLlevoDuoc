@@ -14,14 +14,14 @@ export class UserPage implements OnInit {
   @ViewChild('map', { static: true })
   mapElementRef!: ElementRef; //Se crea una variable para guardar el elemento del mapa
   googleMaps: any; //Se crea una variable para guardar el modulo de google
-  center = { lat: 18.5204, lng: 73.8567 }; //Se crea una variable para guardar la ubicacion del mapa
+  center = { lat: -33.033667, lng: -71.533596 }; //Se crea una variable para guardar la ubicacion del mapa
   map: any; //Se crea una variable para guardar el mapa
   Datos_usuario: UserData | undefined; //Se crea una variable para guardar los datos del usuario
   idUserHtmlRouterLink: any; //Se crea una variable para guardar el id del usuario
   
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private gmaps: GmapsService, private renderer: Renderer2) {
-    this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
+    this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['user']; 
     this.idUserHtmlRouterLink = this.activatedRoute.snapshot.params['id'];
     console.log("Valor obtenido desde URL: ",this.idUserHtmlRouterLink);
    }
@@ -42,7 +42,7 @@ export class UserPage implements OnInit {
       this.map = new googleMaps.Map(mapEl,
            { //Se crea el mapa
             center: location,
-            zoom: 12}); 
+            zoom: 15}); 
       this.renderer.addClass(mapEl, 'visible'); //Se agrega la clase visible al mapa
 
     } catch(e){
