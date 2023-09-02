@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-title>historial</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">historial</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+    <ion-list lines="none" *ngIf="items.length > 0" >
+      <div *ngFor="let item of items; let i=index" class="container">
+        <!--<img src="assets/img/car-icon.jpg" alt="logo" class="img">-->
+
+        <ion-item-options side="end">
+          
+        </ion-item-options>
+
+        <ion-item class="container">
+          <ion-avatar slot="start">
+            <img src="assets/img/car-icon.jpg" alt="logo">
+          </ion-avatar>
+          <ion-label>
+            <ion-text class="ion-text-wrap title">{{item.name}}</ion-text>
+            <p>
+              <ion-text>Fecha: {{item.date}}</ion-text>
+            </p>
+            <p>
+              <ion-text>Conductor: {{item.driver}}</ion-text>
+            </p>
+            <p>
+            <ion-text style="color: #138A21;"><sup>${{item.price}}</sup></ion-text>
+            </p>
+          </ion-label>
+        </ion-item>
+
+
+
+      </div>
+    </ion-list>
+
+</ion-content>

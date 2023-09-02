@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'crear-viaje',
     loadChildren: () => import('./crear-viaje/crear-viaje.module').then( m => m.CrearViajePageModule)
   },
+  {
+    path: 'historial',
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
+  },
 
 ];
 
