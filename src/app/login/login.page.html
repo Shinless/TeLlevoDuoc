@@ -1,62 +1,63 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title class="center">
-      <ion-icon name="car-outline"></ion-icon> <ion-title size="large">¿A donde Vas?</ion-title>
+      <ion-icon name="car-outline"></ion-icon> <ion-title size="large">¿A dónde Vas?</ion-title>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-header collapse="condense">
     <ion-toolbar>
-      
     </ion-toolbar>
   </ion-header>
-  <h1 class="center">Iniciar Sesión</h1>
-  <ion-img class="perfil-icon"
-  src="./assets/img/logo.png"
-  alt="Imagen de perfil"
-  
-></ion-img>
 
+  <div class="login-container">
+    <h1 class="center">Iniciar Sesión</h1>
+    <ion-img class="perfil-icon" src="./assets/img/logo.png" alt="Imagen de perfil"></ion-img>
 
-<ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="10" size-md="8" size-lg="6">
-        <ion-item>
-          <ion-icon name="person" class="icon-login"></ion-icon> 
-          <ion-input name="user" [(ngModel)]="userLoginModal.email"  type="text" required placeholder=" Usuario"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="10" size-md="8" size-lg="6">
-        <ion-item>
-          <ion-icon name="lock-closed-outline"></ion-icon> 
-          <ion-input name="password" [(ngModel)]="userLoginModal.password" type="password" required placeholder="Contraseña"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="10" size-md="8" size-lg="6">
-        <ion-button (click)="userLogin(userLoginModal)" type="submit" fill="solid" expand="full" class="buton-menu">
-          Entrar
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="10" size-md="8" size-lg="6">
-        <ion-button expand="full" fill="clear" class="buton-menu">
-          Registrarse
-        </ion-button>
-      </ion-col>
-      <ion-col size-sm="10" size-md="8" size-lg="6">
-        <ion-button expand="full" fill="clear" class="buton-menu">
-          ¿Olvidaste tu Contraseña?
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-sm="10" size-md="8" size-lg="6">
+          <ion-item lines="none">
+            <ion-label position="floating">
+              <ion-icon name="person"></ion-icon> Usuario
+            </ion-label>
+            <ion-input name="user" [(ngModel)]="userLoginModal.email" type="text" required placeholder="Usuario"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-sm="10" size-md="8" size-lg="6">
+          <ion-item lines="none">
+            <ion-label position="floating">
+              <ion-icon name="lock-closed-outline"></ion-icon> Contraseña
+            </ion-label>
+            <ion-input name="password" [(ngModel)]="userLoginModal.password" type="password" required placeholder="Contraseña"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-sm="10" size-md="8" size-lg="6">
+          <ion-button (click)="userLogin(userLoginModal)" expand="full" class="buton-menu">
+            Entrar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-sm="10" size-md="8" size-lg="6">
+          <ion-button expand="full" fill="clear" class="buton-menu" text-wrap>
+            <ion-icon name="person-add"></ion-icon> Registrarse
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-sm="10" size-md="8" size-lg="6">
+          <ion-button expand="full" fill="clear" class="buton-menu" text-wrap (click)="openForgotPasswordModal()">
+            <ion-icon name="help-circle"></ion-icon> ¿Olvidaste tu Contraseña?
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
