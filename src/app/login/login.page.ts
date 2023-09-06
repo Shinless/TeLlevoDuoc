@@ -16,10 +16,11 @@ import { UserData } from '../models/UserData';
 export class LoginPage implements OnInit {
 
   listUser : UserData[] = [
-    new UserData('Jamalia','Clark','velit.dui.semper@icloud.edu','C','Nolans'),
-    new UserData('Vielka','Haley','venenatis.vel@aol.net','P','Brody T. Mcclure'),
-    new UserData('Ezekiel','Mcknight','montes.nascetur.ridiculus@yahoo.ca','C','Lucius I. Schneider'),
-    new UserData('Hayden','Howell','lectus.cum.sociis@protonmail.ca','C','Jolie P. Atkinson'),
+    new UserData(1,'Jamalia','Clark','velit.dui.semper@icloud.edu','C','Nolans'),
+    new UserData(2,'Vielka','Haley','venenatis.vel@aol.net','P','Brody T. Mcclure'),
+    new UserData(3,'Ezekiel','Mcknight','montes.nascetur.ridiculus@yahoo.ca','C','Lucius I. Schneider'),
+    new UserData(4,'Hayden','Howell','lectus.cum.sociis@protonmail.ca','C','Jolie P. Atkinson'),
+    new UserData(5,'Esteban','Rojas','admin','P','admin'),
   ];
 
   userLoginModal: UserLogin = {

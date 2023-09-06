@@ -3,6 +3,8 @@
     height: 25%;
     margin-left: auto;
     margin-right: auto;
+    background-color: white;
+    border-radius: 100%;
 }
 .bienvenida{
     display: flex;
@@ -16,4 +18,19 @@
     margin-top: 20px;
     color: primary;
     margin-bottom: 20px;
+}
+.map{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    margin: 0 auto; /* Center horizontally */
+}
+.map.visible{
+    opacity: 1;
+}
+ion-content {
+    --ion-background-color: #5572E6;
 }
