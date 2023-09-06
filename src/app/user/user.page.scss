@@ -18,6 +18,8 @@
     margin-top: 20px;
     color: primary;
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .map{
     position: absolute;
@@ -30,6 +32,13 @@
 }
 .map.visible{
     opacity: 1;
+}
+.centrar-mapa{
+    display: flex;
+    //align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 ion-content {
     --ion-background-color: #5572E6;
