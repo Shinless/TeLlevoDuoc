@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>CrearViaje</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,5 +13,23 @@
       <ion-title size="large">CrearViaje</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+  <ion-item>
+    <ion-label position="floating">Descripción</ion-label>
+    <ion-input type="text" [clearInput]="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Origen</ion-label>
+    <ion-input type="text" [clearInput]="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Destino</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Asientos</ion-label>
+    <ion-input type="number"></ion-input>
+    <ion-label position="floating">Precio</ion-label>
+    <ion-input type="number"></ion-input>
+  </ion-item>
+  <ion-button expand="block">Crear</ion-button>
 </ion-content>

@@ -26,4 +26,8 @@ export class HistorialPage implements OnInit {
   }
   dragItem(event: any, index:number){}
 
+  verconductor(){
+    
+  }
+
 }
