@@ -19,11 +19,11 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
 export class LoginPage implements OnInit {
 
   listUser: UserData[] = [
-    new UserData(1, 'Jamalia', 'Clark', 'velit.dui.semper@icloud.edu', 'C', 'Nolans'),
-    new UserData(2, 'Vielka', 'Haley', 'venenatis.vel@aol.net', 'P', 'Brody T. Mcclure'),
-    new UserData(3, 'Ezekiel', 'Mcknight', 'montes.nascetur.ridiculus@yahoo.ca', 'C', 'Lucius I. Schneider'),
-    new UserData(4, 'Hayden', 'Howell', 'lectus.cum.sociis@protonmail.ca', 'C', 'Jolie P. Atkinson'),
-    new UserData(5, 'Esteban', 'Rojas', 'admin', 'P', 'admin'),
+    new UserData(1, 'Jamalia', 'Clark', 'velit.dui.semper@icloud.edu', 'Nolans'),
+    new UserData(2, 'Vielka', 'Haley', 'venenatis.vel@aol.net',  'Brody T. Mcclure'),
+    new UserData(3, 'Ezekiel', 'Mcknight', 'montes.nascetur.ridiculus@yahoo.ca', 'Lucius I. Schneider'),
+    new UserData(4, 'Hayden', 'Howell', 'lectus.cum.sociis@protonmail.ca', 'Jolie P. Atkinson'),
+    new UserData(5, 'Esteban', 'Rojas', 'admin', 'admin'),
   ];
 
   userLoginModal: UserLogin = {
