@@ -8,6 +8,7 @@ import { TripData } from '../models/TripData';
 import { UserData } from '../models/UserData';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'; // Importa el componente del modal
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -45,27 +46,23 @@ export class LoginPage implements OnInit {
     return await modal.present();
   }
 
+
   userLogin(userLoginInfo: UserLogin): boolean {
-    for (let i = 0; i < this.listUser.length; i++) {
-      if ((this.listUser[i].email == userLoginInfo.email) && (this.listUser[i].password == userLoginInfo.password)) {
-        console.log('User Loged...', this.userLoginModal.email, this.userLoginModal.password);
-        let userInfoSend: NavigationExtras = {
-          state: {
-            user: this.listUser[i]
-          }
-        }
-        if (this.listUser[i].type == 'C') {
-          let sendInfo = this.route.navigate(['/user'], userInfoSend);
-          return true;
-        } else {
-          let sendInfo = this.route.navigate(['/user'], userInfoSend);
-          return true;
-        }
-      }
+    const user = this.listUser.find(u => u.email === userLoginInfo.email && u.password === userLoginInfo.password);
+  
+    if (user) {
+      console.log('User Logged...', user.email, user.password);
+      const userInfoSend: NavigationExtras = {
+        state: { user }
+      };
+  
+      this.route.navigate(['/user'], userInfoSend);
+      return true;
     }
+  
     this.userLoginModalRestart();
     return false;
-  }
+  }  
 
   userLoginModalRestart(): void {
     this.userLoginModal.email = '';
