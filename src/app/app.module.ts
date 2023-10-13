@@ -7,9 +7,10 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule para el uso
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'; // Agrega la importación de ForgotPasswordComponent
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, ForgotPasswordComponent], // Agrega ForgotPasswordComponent aquí
+  declarations: [AppComponent, ForgotPasswordComponent, RegisterComponent], // Agrega ForgotPasswordComponent aquí
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule], // Agrega FormsModule aquí
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

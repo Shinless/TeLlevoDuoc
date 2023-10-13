@@ -7,6 +7,7 @@ import { UserLogin } from '../models/UserLogin';
 import { TripData } from '../models/TripData';
 import { UserData } from '../models/UserData';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'; // Importa el componente del modal
+import { RegisterComponent } from '../register/register.component';
 
 
 @Component({
@@ -68,4 +69,13 @@ export class LoginPage implements OnInit {
     this.userLoginModal.email = '';
     this.userLoginModal.password = '';
   }
+
+async openRegister() {
+  console.log('Abriendo modal...');
+  const modal = await this.modalController.create({
+    component: RegisterComponent,
+    cssClass: 'Register-modal'
+  });
+  return await modal.present();
+}
 }
