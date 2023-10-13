@@ -8,6 +8,8 @@ import { TripData } from '../models/TripData';
 import { UserData } from '../models/UserData';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'; // Importa el componente del modal
 import { RegisterComponent } from '../register/register.component';
+import { Observable } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -18,6 +20,8 @@ import { RegisterComponent } from '../register/register.component';
   imports: [IonicModule, CommonModule, RouterLinkWithHref, FormsModule]
 })
 export class LoginPage implements OnInit {
+
+  Users: Observable<any>;
 
   listUser: UserData[] = [
     new UserData(1, 'Jamalia', 'Clark', 'velit.dui.semper@icloud.edu', 'Nolans'),
@@ -32,7 +36,16 @@ export class LoginPage implements OnInit {
     password: ''
   };
 
-  constructor(private route: Router, private modalController: ModalController) { } // Agrega 'private' aquí
+  constructor(private route: Router,
+    private modalController: ModalController,
+    public http: HttpClient
+    ) {
+
+      this.Users = this.http.get('https://sa-east-1.aws.data.mongodb-api.com/app/data-nsunf/endpoint/data/v1/action/find');
+      this.Users.subscribe(data => {
+        console.log('my data: ', data);
+      })
+     } // Agrega 'private' aquí
 
   ngOnInit() {
     this.userLoginModalRestart();

@@ -8,10 +8,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'; // Agrega la importación de ForgotPasswordComponent
 import { RegisterComponent } from './register/register.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, ForgotPasswordComponent, RegisterComponent], // Agrega ForgotPasswordComponent aquí
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule], // Agrega FormsModule aquí
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,HttpClientModule], // Agrega FormsModule aquí
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GoogleMaps, // Agrega GoogleMaps si es necesario
