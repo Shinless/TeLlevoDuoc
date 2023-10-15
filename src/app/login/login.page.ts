@@ -8,8 +8,10 @@ import { TripData } from '../models/TripData';
 import { UserData } from '../models/UserData';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'; // Importa el componente del modal
 import { RegisterComponent } from '../register/register.component';
-import { Observable } from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { ConnectionService } from '../services/connections/connection.service';
+import { h } from 'ionicons/dist/types/stencil-public-runtime';
 
 
 @Component({
@@ -17,11 +19,12 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterLinkWithHref, FormsModule]
+  imports: [IonicModule, CommonModule, RouterLinkWithHref, FormsModule, HttpClientModule]
 })
 export class LoginPage implements OnInit {
 
-  Users: Observable<any>;
+  //Users: Observable<UserData[]>;
+  prueba : Subscription;
 
   listUser: UserData[] = [
     new UserData(1, 'Jamalia', 'Clark', 'velit.dui.semper@icloud.edu', 'Nolans'),
@@ -38,13 +41,12 @@ export class LoginPage implements OnInit {
 
   constructor(private route: Router,
     private modalController: ModalController,
-    public http: HttpClient
+    public http: HttpClient,
+    private connectionService: ConnectionService
     ) {
-
-      this.Users = this.http.get('https://sa-east-1.aws.data.mongodb-api.com/app/data-nsunf/endpoint/data/v1/action/find');
-      this.Users.subscribe(data => {
-        console.log('my data: ', data);
-      })
+      this.prueba = this.connectionService.getUsers().subscribe(data => {
+        console.log(data)});
+      
      } // Agrega 'private' aquí
 
   ngOnInit() {
@@ -91,4 +93,10 @@ async openRegister() {
   });
   return await modal.present();
 }
+  userLoginSupabase(userLoginInfo: UserLogin): boolean {
+    this.connectionService.getUserByEmail(userLoginInfo.email).subscribe(data => {
+      console.log(data);
+    });
+    return true;
+  }
 }
