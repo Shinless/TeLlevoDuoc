@@ -23,8 +23,8 @@ export class ConnectionService {
     return this._http.get<UserData[]>(this.url_get_users + '?select=*',{headers: this.header, responseType: 'json'});
   }
 
-  getUserByEmail(email: string): Observable<UserData[]> {
-    return this._http.get<UserData[]>(this.url_get_users + `?email=eq.${email}`,{headers: this.header, responseType: 'json'});
+  getUserByEmail(email: string, password: string): Observable<UserData[]> {
+    return this._http.get<UserData[]>(this.url_get_users + `?email=eq.${email}` + `&password=eq.${password}`+'&select=*',{headers: this.header, responseType: 'json'});
   }
 
 }

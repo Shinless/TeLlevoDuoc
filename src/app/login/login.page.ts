@@ -24,7 +24,7 @@ import { h } from 'ionicons/dist/types/stencil-public-runtime';
 export class LoginPage implements OnInit {
 
   //Users: Observable<UserData[]>;
-  prueba : Subscription;
+  //prueba : Subscription;
 
   listUser: UserData[] = [
     new UserData(1, 'Jamalia', 'Clark', 'velit.dui.semper@icloud.edu', 'Nolans'),
@@ -44,8 +44,8 @@ export class LoginPage implements OnInit {
     public http: HttpClient,
     private connectionService: ConnectionService
     ) {
-      this.prueba = this.connectionService.getUsers().subscribe(data => {
-        console.log(data)});
+      //this.prueba = this.connectionService.getUsers().subscribe(data => {
+        //console.log(data)});
       
      } // Agrega 'private' aquí
 
@@ -94,8 +94,23 @@ async openRegister() {
   return await modal.present();
 }
   userLoginSupabase(userLoginInfo: UserLogin): boolean {
-    this.connectionService.getUserByEmail(userLoginInfo.email).subscribe(data => {
-      console.log(data);
+    this.connectionService.getUserByEmail(userLoginInfo.email, userLoginInfo.password).subscribe({ //Se llama al metodo getUserByEmail del servicio connectionService
+      next: user => { //Se crea una variable para guardar los datos del usuario
+        console.log('Usuario', user);
+        if (user.length > 0) { //Se verifica si el usuario existe
+          console.log('User Logged...', user[0].email, user[0].password); 
+          const userInfoSend: NavigationExtras = { //Se crea una variable para guardar los datos del usuario
+            state: { user }  //Se guarda los datos del usuario en la variable creada
+          };
+          this.route.navigate(['/user'], userInfoSend); //Se redirige a la pagina user
+        } else {
+          console.log('Usuario no encontrado...');
+          this.userLoginModalRestart();
+        }
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
     });
     return true;
   }

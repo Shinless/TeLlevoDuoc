@@ -21,7 +21,8 @@ export class UserPage implements OnInit {
   
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private gmaps: GmapsService, private renderer: Renderer2) {
-    this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['user']; 
+    
+    this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['userInfoSend']; 
     this.idUserHtmlRouterLink = this.activatedRoute.snapshot.params['id'];
     console.log("Valor obtenido desde URL: ",this.idUserHtmlRouterLink);
    }
