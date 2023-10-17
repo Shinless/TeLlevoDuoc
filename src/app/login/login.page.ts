@@ -12,6 +12,7 @@ import { Observable, Subscription } from 'rxjs';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { ConnectionService } from '../services/connections/connection.service';
 import { h } from 'ionicons/dist/types/stencil-public-runtime';
+import { InsertUserData } from '../models/InsertUserData';
 
 
 @Component({
@@ -25,7 +26,12 @@ export class LoginPage implements OnInit {
 
   //Users: Observable<UserData[]>;
   //prueba : Subscription;
-
+  //usuarioPruebaInsertar: InsertUserData = {
+   // name: 'Ezekiel',
+   // last_name: 'Mcknight',
+   // email: 'montes.nascetur.ridiculus@yahoo.ca',
+   // password: 'Lucius I. Schneider'
+  //}
   listUser: UserData[] = [
     new UserData(1, 'Jamalia', 'Clark', 'velit.dui.semper@icloud.edu', 'Nolans'),
     new UserData(2, 'Vielka', 'Haley', 'venenatis.vel@aol.net',  'Brody T. Mcclure'),
@@ -46,7 +52,8 @@ export class LoginPage implements OnInit {
     ) {
       //this.prueba = this.connectionService.getUsers().subscribe(data => {
         //console.log(data)});
-      
+      //this.connectionService.insertUser(this.usuarioPruebaInsertar).subscribe(data => {
+        //console.log(data)});
      } // Agrega 'private' aquí
 
   ngOnInit() {
