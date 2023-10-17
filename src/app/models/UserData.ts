@@ -7,6 +7,6 @@ export class UserData {
         public password: string,
     ) {
     }
-
-    
 }
+
+
