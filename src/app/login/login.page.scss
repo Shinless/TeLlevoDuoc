@@ -1,52 +1,41 @@
 #container {
-    text-align: center;
-  
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  #container strong {
-    font-size: 20px;
-    line-height: 26px;
-  }
-  
-  #container p {
-    font-size: 16px;
-    line-height: 22px;
-  
-    color: #8c8c8c;
-  
-    margin: 0;
-  }
-  
-  #container a {
-    text-decoration: none;
-  }
-  
-  
-  .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-  
-  .perfil-icon {
-    width: 40%;
-    height: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 50%;
-    align-items: center;
-  }
-  
-  .buton-menu {
-    width: 40%;
-    margin: 0 auto;
-  }
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.perfil-icon {
+  width: 40%;
+  height: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+.buton-menu {
+  width: 40%;
+  margin: 0 auto;
+  color: #333;
+}
 
 /* Colores Institucionales */
 :root {
@@ -86,14 +75,6 @@ ion-content {
   padding: 20px;
 }
 
-/* Estilo de Formularios */
-ion-item {
-  --ion-item-background: white;
-  --ion-item-border-color: #ddd;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
 ion-label {
   font-weight: bold;
 }
@@ -111,11 +92,29 @@ ion-icon {
 ion-input {
   color: #333;
   width: auto;
-  max-width: 300px; /* Establece un ancho máximo para evitar que se vuelvan demasiado grandes */
+  max-width: 300px;
   margin-bottom: 10px; 
 }
 
-/* Agrega este estilo CSS en tu archivo de estilos global o en el archivo CSS de tu componente */
-
 /* Estilo personalizado para que los labels flotantes se muestren inicialmente */
 
+.login-container {
+  background-color: rgba(0, 82, 155, 0.8); /* Color azul translúcido al 80% */
+  padding: 20px;
+}
+
+
+.custom-header {
+  background-color: rgba(255, 184, 0, 1);
+}
+
+.custom-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+ion-item {
+  width: 100%;
+}
