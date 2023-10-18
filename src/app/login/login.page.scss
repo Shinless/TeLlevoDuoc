@@ -7,6 +7,14 @@
   position: relative; /* Añade una posición relativa al contenedor */
 }
 
+
+.logo-img {
+  display: block;
+  margin: 0 auto; /* Centra horizontalmente */
+  max-width: 75%; /* Ajusta el ancho máximo del logo según tus necesidades */
+  height: auto; /* Permite que la altura se ajuste automáticamente para mantener la proporción */
+}
+
 /* Agrega una capa semitransparente para oscurecer la imagen de fondo */
 .background::before {
   content: '';
@@ -26,16 +34,17 @@ ion-content {
 
 /* Define un estilo para el recuadro con bordes redondeados */
 .custom-box {
-  background-color: rgba(0, 0, 128, 0.45); /* Azul oscuro con opacidad del 45% */
-  border: 1px solid #000; /* Borde negro (opcional) */
-  border-radius: 10px; /* Bordes redondeados de 10 píxeles (ajusta según tus necesidades) */
+  background-color: rgba(0, 23, 39, 0.75); /* Cambia el fondo a un blanco suave (#f0f0f0) */
+  border-radius: 20px; /* Bordes redondeados de 10 píxeles (ajusta según tus necesidades) */
   padding: 10px; /* Espaciado interno (ajústalo según tus necesidades) */
-  color: #fff; /* Color de texto (blanco en este caso) */
+  color: rgb(3, 63, 105); /* Cambia el color del texto a un azul oscuro (#000082) */
 }
+
+
 
 /* Estilo para el título en el ion-header (con colores intercambiados) */
 .custom-title {
-  background-color: #ff9b05; /* Cambia el color del fondo del título al deseado */
+  background-color: #5BC5DB; /* Cambia el color del fondo del título al deseado */
   color: #333; /* Cambia el color del texto a un gris oscuro (#333) o al que desees */
   padding: 10px; /* Agrega espacio interno al título si es necesario */
   text-align: center; /* Centra el texto en el título */
@@ -43,16 +52,17 @@ ion-content {
 
 /* Agrega un fondo transparente al ion-input */
 .transparent-input {
-  --background: rgba(64, 64, 64, 0.85); /* Gris oscuro (RGBA) con un 50% de translucidez */
-  --border-color: rgb(0, 0, 128); /* Cambia el color del borde a "rgb(0, 0, 128)" o al que desees */
+  --background: rgba(230, 230, 230, 0.85); /* Gris oscuro (RGBA) con un 50% de translucidez */
+  --border-color: rgb(94, 136, 175); /* Cambia el color del borde a "rgb(0, 0, 128)" o al que desees */
   --border-width: 1px; /* Establece el ancho del borde a 1 píxel (ajusta según tus necesidades) */
   --border-style: solid; /* Establece el estilo del borde como sólido */
-  --border-radius: 10px; /* Agrega bordes redondeados de 10 píxeles (ajusta según tus necesidades) */
+  --border-radius: 10px;
+  color: rgb(58, 71, 116) /* Agrega bordes redondeados de 10 píxeles (ajusta según tus necesidades) */
 }
 
 /* Define la clase '.button-login' para el botón de inicio de sesión */
 .button-login {
-  --background: #ff9b05; /* Cambia el color de fondo del botón a amarillo (#ff9b05) o al que desees */
+  --background: #5BC5DB; /* Cambia el color de fondo del botón a amarillo (#ff9b05) o al que desees */
   --color: #fff; /* Cambia el color del texto a blanco (#fff) */
   --border-radius: 10px; /* Agrega bordes redondeados de 10 píxeles (ajusta según tus necesidades) */
 }
@@ -70,5 +80,5 @@ ion-content {
 
 /* Establece el color de texto a blanco en tus botones */
 ion-button {
-  --color: #fff; /* Cambia el color del texto a blanco (#fff) o al que desees */
+  --color: #d6d6d6; /* Cambia el color del texto a blanco (#fff) o al que desees */
 }

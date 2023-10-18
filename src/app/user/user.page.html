@@ -6,39 +6,52 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
       <ion-title>Te Llevo Duoc</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding"> 
+
+  <ion-content class="background">
     <div>
-      <h2 class="ion-text-center">Bienvenido {{Datos_usuario?.name}} <!--{{user.name}}--></h2>
+      <h2 class="ion-text-center">Bienvenido {{Datos_usuario?.name}}</h2>
     </div>
-      
+
     <div>
       <ion-img class="profile-picture" src="assets/img/user_male_avatar.svg"></ion-img>
     </div>
-    <div>
-      
-      <ion-item class="ion-text-center">
-          <ion-button  class="botones-viajes" shape="round" color="primary"><ion-icon name="people-circle-outline"></ion-icon> Crear Viaje</ion-button>
-      </ion-item>
 
-      <ion-item class="ion-text-center">
-          <ion-button  class="botones-viajes" shape="round"> <ion-icon name="car-sport-outline"></ion-icon> Buscar Viaje</ion-button>
-      </ion-item>
-
-      <ion-item>
-          <ion-button  class="botones-viajes" shape="round" color="primary"><ion-icon name="people-circle-outline"></ion-icon> Registrar Auto</ion-button>
-      </ion-item>
-
+    <div class="botones-container">
+      <ion-row>
+        <ion-col size="6">
+          <ion-button shape="round" class="botones-viajes" color="primary">
+            <ion-icon name="people-circle-outline"></ion-icon> Crear Viaje
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button shape="round" class="botones-viajes">
+            <ion-icon name="car-sport-outline"></ion-icon> Buscar Viaje
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button shape="round" class="botones-viajes" color="primary">
+            <ion-icon name="people-circle-outline"></ion-icon> Registrar Auto
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button shape="round" class="botones-viajes">
+            <ion-icon name="trash-outline"></ion-icon> Eliminar Auto
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </div>
-    <div class="centrar-mapa">
-      <div class="map" #map>
 
-      </div>
+    <div class="centrar-mapa">
+      <div class="map" #map></div>
     </div>
   </ion-content>
 </div>

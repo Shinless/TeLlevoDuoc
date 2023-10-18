@@ -17,4 +17,8 @@ export class RegisterComponent{
   confirm() {
     return this.modalCtrl.dismiss(null, 'confirm');
   }
+
+  closeModal() {
+    this.modalCtrl.dismiss();
+  }
 }
