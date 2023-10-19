@@ -9,8 +9,20 @@
   .botones-viajes {
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center; /* Añade esto para centrar horizontalmente */
     margin: 20px auto;
+    background-color: #5BC5DB;
+    flex: 1; /* Hace que todos los elementos flexibles tengan el mismo tamaño */
+  }
+  
+
+  .custom-button {
+    border-radius: 20px; /* Borde redondeado */
+    background-color: transparent; /* Fondo transparente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
   }
   
   .map {

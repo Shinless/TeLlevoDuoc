@@ -1,12 +1,10 @@
 export class UserData {
     constructor(
-        public id: number,
-        public name: string,
-        public last_name: string,
-        public email: string,
-        public password: string,
+      public id: number,          // Identificador único del usuario.
+      public name: string,        // Nombre del usuario.
+      public last_name: string,   // Apellido del usuario.
+      public email: string,       // Correo electrónico del usuario.
+      public password: string,    // Contraseña del usuario.
     ) {
     }
-}
-
-
+  }

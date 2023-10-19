@@ -11,13 +11,13 @@
 
 <ion-content class="background">
   <div>
-  <ion-img src="./assets/img/logo.png" alt="Imagen de perfil" class="logo-img"></ion-img>
+    <ion-img src="./assets/img/logo.png" alt="Imagen de perfil" class="logo-img"></ion-img>
   </div>
   <ion-grid class="custom-box">
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="name" type="text" required placeholder="Nombre">
+          <ion-input labelPlacement="floating" name="name" [(ngModel)]="userData.name" type="text" required placeholder="Nombre">
             <div slot="label">Nombre</div>
           </ion-input>
         </ion-item>
@@ -26,7 +26,7 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="last_name" type="text" required placeholder="Apellido">
+          <ion-input labelPlacement="floating" name="last_name" [(ngModel)]="userData.last_name" type="text" required placeholder="Apellido">
             <div slot="label">Apellido</div>
           </ion-input>
         </ion-item>
@@ -35,7 +35,7 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="email" type="text" required placeholder="Correo Electrónico">
+          <ion-input labelPlacement="floating" name="email" [(ngModel)]="userData.email" type="text" required placeholder="Correo Electrónico">
             <div slot="label">Correo Electrónico</div>
           </ion-input>
         </ion-item>
@@ -44,7 +44,7 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="password" type="password" required placeholder="Contraseña">
+          <ion-input labelPlacement="floating" name="password" [(ngModel)]="userData.password" type="password" required placeholder="Contraseña">
             <div slot="label">Contraseña</div>
           </ion-input>
         </ion-item>
@@ -53,18 +53,23 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="confirm_password" type="password" required placeholder="Confirmar Contraseña">
+          <ion-input labelPlacement="floating" name="confirm_password" [(ngModel)]="confirmPassword" type="password" required placeholder="Confirmar Contraseña">
             <div slot="label">Confirmar Contraseña</div>
           </ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-      <ion-row class="center-row">
-        <ion-col class="center-col">
-          <ion-button class="button-login"  expand="none">
-            Registarse
-          </ion-button>
-        </ion-col>
-    </ion-row>
+    <ion-row class="center-row">
+      <ion-col class="center-col">
+        <ion-button class="button-login" (click)="registerUser()" expand="none">
+          Registrarse
+        </ion-button>
+      </ion-col>
+    </ion-row> 
   </ion-grid>
+  <ion-row class="center-row">
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  </ion-row>  
 </ion-content>
