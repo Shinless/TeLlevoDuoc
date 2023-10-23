@@ -5,6 +5,7 @@ import { UserData } from 'src/app/models/UserData';
 import { InsertUserData } from 'src/app/models/InsertUserData';
 import { UserDataService } from '../data/user-data.service';
 import { environment } from 'src/environments/environment';
+import { insertViajeData } from 'src/app/models/insertViajeData';
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +24,13 @@ export class ConnectionService {
 
   // Obtener todos los usuarios
   getUsers(): Observable<UserData[]> {
-    return this._http.get<UserData[]>(this.API_URL + '?select=*', { headers: this.header, responseType: 'json' });
+    return this._http.get<UserData[]>(this.API_URL + 'Users?select=*', { headers: this.header, responseType: 'json' });
   }
 
   // Obtener usuario por email y contraseña
   getUserByEmail(email: string, password: string): Observable<UserData[]> {
     return this._http.get<UserData[]>(
-      this.API_URL + `?email=eq.${email}` + '&select=*',
+      this.API_URL + `Users?email=eq.${email}` + '&select=*',
       { headers: this.header, responseType: 'json' }
     ).pipe(
       tap((users: UserData[]) => {
@@ -44,7 +45,7 @@ export class ConnectionService {
   checkEmailExists(email: string): Observable<boolean> {
     return this._http
       .get<UserData[]>(
-        this.API_URL + `?email=eq.${email}` + '&select=email',
+        this.API_URL + `Users?email=eq.${email}` + '&select=email',
         { headers: this.header, responseType: 'json' }
       )
       .pipe(
@@ -56,12 +57,12 @@ export class ConnectionService {
 
   // Insertar un nuevo usuario
   insertUser(user: InsertUserData): Observable<InsertUserData> {
-    return this._http.post<InsertUserData>(this.API_URL, user, { headers: this.header.set('Authorization', this.AUTH_TOKEN), responseType: 'json' });
+    return this._http.post<InsertUserData>(this.API_URL+'Users', user, { headers: this.header.set('Authorization', this.AUTH_TOKEN), responseType: 'json' });
   }
 
   // Obtener usuario por ID
   getUserById(userId: any): Observable<UserData> {
-    return this._http.get<UserData>(this.API_URL + `?id=eq.${userId}` + '&select=*', { headers: this.header, responseType: 'json' });
+    return this._http.get<UserData>(this.API_URL + `Users?id=eq.${userId}` + '&select=*', { headers: this.header, responseType: 'json' });
   }
   registerUser(userData: InsertUserData): Observable<UserData> {
     // Realiza una solicitud POST al backend para registrar al usuario
@@ -75,6 +76,12 @@ export class ConnectionService {
         this.UserDataService.setUser(user);
       })
     );
-  }  
+  }
+  getViajes(): Observable<any[]> {
+    return this._http.get<any[]>(this.API_URL + 'Viaje?select=*', { headers: this.header, responseType: 'json' });
+  }
+  insertViaje(viaje : insertViajeData): Observable<any> {
+    return this._http.post<insertViajeData>(this.API_URL+'Viaje', viaje, { headers: this.header, responseType: 'json' });
+  }
 }
 

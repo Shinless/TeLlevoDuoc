@@ -3,6 +3,7 @@ import { UserData } from '../models/UserData';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GmapsService } from '../services/gmaps/gmaps.service';
 
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.page.html',
@@ -26,6 +27,7 @@ export class UserPage implements OnInit {
     // Obtiene los datos del usuario de la navegación y el ID de la URL
     this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['userInfoSend'];
     this.idUserHtmlRouterLink = this.activatedRoute.snapshot.params['id'];
+    
   }
 
   ngOnInit() {
