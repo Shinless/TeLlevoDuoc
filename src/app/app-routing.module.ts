@@ -3,37 +3,32 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
-    path: 'user',
-    loadChildren: () => import('./user/user.module').then( m => m.UserPageModule)
+    path: 'user/:id', // Agrega un segmento dinámico para el ID del usuario
+    loadChildren: () => import('./user/user.module').then(m => m.UserPageModule),
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule), // Usar LoginPageModule
   },
   {
-    path: 'crear-viaje',
-    loadChildren: () => import('./crear-viaje/crear-viaje.module').then( m => m.CrearViajePageModule)
+    path: 'viaje',
+    loadChildren: () => import('./crear-viaje/crear-viaje.module').then(m => m.CrearViajePageModule),
   },
   {
     path: 'historial',
-    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
+    loadChildren: () => import('./historial/historial.module').then(m => m.HistorialPageModule),
   },
-
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

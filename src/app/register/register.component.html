@@ -1,16 +1,75 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
-    </ion-buttons>
-    <ion-title>Welcome</ion-title>
+  <ion-toolbar class="custom-title">
+    <ion-title class="ion-text-center">Registro de Usuario</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+      <ion-button (click)="closeModal()" fill="clear">
+        <ion-icon name="close-circle-outline"></ion-icon> Cerrar
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-  <ion-item>
-    <ion-input labelPlacement="stacked" label="Enter your name" placeholder="Your name"></ion-input>
-  </ion-item>
+
+<ion-content class="background">
+  <div>
+    <ion-img src="./assets/img/logo.png" alt="Imagen de perfil" class="logo-img"></ion-img>
+  </div>
+  <ion-grid class="custom-box">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="8" size-lg="6">
+        <ion-item class="transparent-input">
+          <ion-input labelPlacement="floating" name="name" [(ngModel)]="userData.name" type="text" required placeholder="Nombre">
+            <div slot="label">Nombre</div>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="8" size-lg="6">
+        <ion-item class="transparent-input">
+          <ion-input labelPlacement="floating" name="last_name" [(ngModel)]="userData.last_name" type="text" required placeholder="Apellido">
+            <div slot="label">Apellido</div>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="8" size-lg="6">
+        <ion-item class="transparent-input">
+          <ion-input labelPlacement="floating" name="email" [(ngModel)]="userData.email" type="text" required placeholder="Correo Electrónico">
+            <div slot="label">Correo Electrónico</div>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="8" size-lg="6">
+        <ion-item class="transparent-input">
+          <ion-input labelPlacement="floating" name="password" [(ngModel)]="userData.password" type="password" required placeholder="Contraseña">
+            <div slot="label">Contraseña</div>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="8" size-lg="6">
+        <ion-item class="transparent-input">
+          <ion-input labelPlacement="floating" name="confirm_password" [(ngModel)]="confirmPassword" type="password" required placeholder="Confirmar Contraseña">
+            <div slot="label">Confirmar Contraseña</div>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="center-row">
+      <ion-col class="center-col">
+        <ion-button class="button-login" (click)="registerUser()" expand="none">
+          Registrarse
+        </ion-button>
+      </ion-col>
+    </ion-row> 
+  </ion-grid>
+  <ion-row class="center-row">
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  </ion-row>  
 </ion-content>
