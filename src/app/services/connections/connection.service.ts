@@ -83,5 +83,18 @@ export class ConnectionService {
   insertViaje(viaje : insertViajeData): Observable<any> {
     return this._http.post<insertViajeData>(this.API_URL+'Viaje', viaje, { headers: this.header, responseType: 'json' });
   }
+
+  getAsientosViaje(idViaje: number): Observable<any> {
+    return this._http.get<any>(this.API_URL + `Viaje?id_viaje=eq.${idViaje}&select=Asientos_max`, { headers: this.header, responseType: 'json' }); 
+  }
+  //aun le falta a esta funcion
+  restarAsientoViaje(idViaje: number): Observable<any> {
+    this.getAsientosViaje(idViaje).subscribe(asientos => {
+      asientos = asientos - 1;
+      console.log(asientos);
+    });
+    return this._http.patch<any>(this.API_URL + `Viaje?id=eq.${idViaje}`, { headers: this.header, responseType: 'json' });
+  }
+
 }
 

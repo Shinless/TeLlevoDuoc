@@ -25,13 +25,13 @@
       private connectionService: ConnectionService,
       private UserDataService: UserDataService
     ) {
-      this.connectionService.getViajes().subscribe({
-        next: (viajes) => {
-          console.log(viajes);
-        },
-        error: (error) => {
-          console.error('Error:', error);
-        },
+      this.connectionService.getAsientosViaje(1).subscribe(data => {
+        const jsonString = data[0].asientos;
+        const jsonObject = JSON.parse(data[0].asientos); // Convierte la cadena JSON en un objeto JavaScript
+        const asientosMax = jsonObject.Asientos_max; // Accede al valor del campo "Asientos_max"
+
+        console.log(asientosMax); // Esto imprimirá 3 como un número en la consola
+
       });
     }
 
