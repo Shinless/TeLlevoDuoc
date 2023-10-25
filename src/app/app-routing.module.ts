@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'historial',
     loadChildren: () => import('./historial/historial.module').then(m => m.HistorialPageModule),
+  },  {
+    path: 'yenderx',
+    loadChildren: () => import('./yenderx/yenderx.module').then( m => m.YenderxPageModule)
   },
+
 ];
 
 @NgModule({
