@@ -71,6 +71,10 @@
   .center-row {
     justify-content: center;
   }
+
+  .ion-valid.sc-ion-input-md-h {
+    --highlight-color: #295083;
+  }
   
   /* Clase para centrar el contenido horizontalmente */
   .center-col {

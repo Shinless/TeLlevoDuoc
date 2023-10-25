@@ -15,8 +15,8 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="name" type="text" required placeholder="Nombre">
-            <div slot="label">Nombre</div>
+          <ion-input labelPlacement="floating" name="Asientos_max" type="number" required placeholder="Asientos Libre">
+            <div slot="label">Asientos Disponibles</div>
           </ion-input>
         </ion-item>
       </ion-col>
@@ -24,8 +24,8 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="last_name"  type="text" required placeholder="Apellido">
-            <div slot="label">Apellido</div>
+          <ion-input labelPlacement="floating" name="Origen"  type="text" required placeholder="Origen">
+            <div slot="label">Origen</div>
           </ion-input>
         </ion-item>
       </ion-col>
@@ -33,8 +33,8 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="email" type="text" required placeholder="Correo Electrónico">
-            <div slot="label">Correo Electrónico</div>
+          <ion-input labelPlacement="floating" name="destino" type="text" required placeholder="destino">
+            <div slot="label">Destino</div>
           </ion-input>
         </ion-item>
       </ion-col>
@@ -42,17 +42,8 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="8" size-lg="6">
         <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="password" type="password" required placeholder="Contraseña">
-            <div slot="label">Contraseña</div>
-          </ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="12" size-md="8" size-lg="6">
-        <ion-item class="transparent-input">
-          <ion-input labelPlacement="floating" name="confirm_password" type="password" required placeholder="Confirmar Contraseña">
-            <div slot="label">Confirmar Contraseña</div>
+          <ion-input labelPlacement="floating" name="precio" type="number" required placeholder="Precio">
+            <div slot="label">Precio</div>
           </ion-input>
         </ion-item>
       </ion-col>
@@ -60,13 +51,15 @@
     <ion-row class="center-row">
       <ion-col class="center-col">
         <ion-button class="button-login" expand="none">
-          Registrarse
+          Crear Viaje
         </ion-button>
       </ion-col>
     </ion-row> 
   </ion-grid>
+
   <ion-row class="center-row">
-  <div class="error-message">
-  </div>
+    <div class="error-message">
+    {{ errorMessage }}
+    </div>
   </ion-row>  
 </ion-content>

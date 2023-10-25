@@ -61,9 +61,10 @@
     </ion-row>
     <ion-row class="center-row">
       <ion-col class="center-col">
-        <ion-button class="button-login" (click)="registerUser()" expand="none">
+        <ion-button class="button-login" id="open-toast" (click)="registerUser()" expand="block">
           Registrarse
         </ion-button>
+        <ion-toast trigger="open-toast" message="Usuario Creado. Volviendo al menu principal" [duration]="5000"></ion-toast>
       </ion-col>
     </ion-row> 
   </ion-grid>

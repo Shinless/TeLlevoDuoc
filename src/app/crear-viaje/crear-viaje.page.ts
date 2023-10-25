@@ -8,6 +8,7 @@ import { UserData } from '../models/UserData';
 })
 export class CrearViajePage implements OnInit {
 
+  errorMessage: string = ''; //Variable para guardar el mensaje de error
   Datos_usuario: UserData | undefined; //Se crea una variable para guardar los datos del usuario
   constructor() { }
 
