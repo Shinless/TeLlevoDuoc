@@ -30,7 +30,7 @@ export class ConnectionService {
   // Obtener usuario por email y contraseña
   getUserByEmail(email: string, password: string): Observable<UserData[]> {
     return this._http.get<UserData[]>(
-      this.API_URL + `Users?email=eq.${email}` + '&select=*',
+      this.API_URL + `Users?email=eq.${email}` +`&password=eq.${password}` + '&select=*',
       { headers: this.header, responseType: 'json' }
     ).pipe(
       tap((users: UserData[]) => {
@@ -83,5 +83,15 @@ export class ConnectionService {
   insertViaje(viaje : insertViajeData): Observable<any> {
     return this._http.post<insertViajeData>(this.API_URL+'Viaje', viaje, { headers: this.header, responseType: 'json' });
   }
+  getViajeIdFromReserva(idPasajero: number){
+    //Para sacar el id de viaje de reserva
+  }
+  getViajeById(id_viaje: number){ 
+    return this._http.get<any[]>(this.API_URL + `Viaje?id_viaje=eq.${id_viaje}` + '&select=*', { headers: this.header, responseType: 'json' });
+  }
+  getViajeByConductor(id_conductor: number){
+    return this._http.get<any[]>(this.API_URL + `Viaje?id_conductor=eq.${id_conductor}` + '&select=*', { headers: this.header, responseType: 'json' });
+  } //Obtener viajes por conductor para mostrarlos en el historial
+  
 }
 
