@@ -25,7 +25,11 @@
       private connectionService: ConnectionService,
       private UserDataService: UserDataService
     ) {
-      
+      this.connectionService.restarAsientoViaje(1).subscribe(
+        (data) => {
+          console.log(data);
+        }
+      );
     }
 
     ngOnInit() {
