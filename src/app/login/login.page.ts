@@ -25,14 +25,7 @@
       private connectionService: ConnectionService,
       private UserDataService: UserDataService
     ) {
-      this.connectionService.getViajes().subscribe({
-        next: (viajes) => {
-          console.log(viajes);
-        },
-        error: (error) => {
-          console.error('Error:', error);
-        },
-      });
+      
     }
 
     ngOnInit() {
