@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { UserData } from 'src/app/models/UserData';
 import { InsertUserData } from 'src/app/models/InsertUserData';
 import { UserDataService } from '../data/user-data.service';
@@ -99,11 +99,33 @@ export class ConnectionService {
   //aun le falta a esta funcion
   restarAsientoViaje(idViaje: number): Observable<any> {
     this.getAsientosViaje(idViaje).subscribe(asientos => {
-      asientos = asientos - 1;
-      console.log(asientos);
+      console.log(asientos[0].Asientos_max);
+      let asientos_mod = asientos[0].Asientos_max - 1;
+      //asientos = asientos_mod - 1;
+      console.log(asientos_mod);
+      this.modificarAsientos(idViaje, asientos_mod).subscribe(
+        (data) => {
+          console.log(data);
+        }
+      );
     });
     // Modificar a una nueva funcion
-    return this._http.patch<any>(this.API_URL + `Viaje?id=eq.${idViaje}`, { headers: this.header, responseType: 'json' });
+    return of(true);
+  }
+  sumarAsientoViaje(idViaje: number): Observable<any> {
+    this.getAsientosViaje(idViaje).subscribe(asientos => {
+      console.log(asientos[0].Asientos_max);
+      let asientos_mod = asientos[0].Asientos_max + 1;
+      //asientos = asientos_mod - 1;
+      console.log(asientos_mod);
+      this.modificarAsientos(idViaje, asientos_mod).subscribe(
+        (data) => {
+          console.log(data);
+        }
+      );
+    });
+    // Modificar a una nueva funcion
+    return of(true);
   }
   modificarAsientos(idViaje: number, asientos_nuevos: number): Observable<any> {
     return this._http.patch<any>(this.API_URL + `Viaje?id_viaje=eq.${idViaje}`, { Asientos_max: asientos_nuevos }, { headers: this.header, responseType: 'json' });
