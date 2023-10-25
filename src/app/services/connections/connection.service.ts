@@ -109,7 +109,7 @@ export class ConnectionService {
         }
       );
     });
-    // Modificar a una nueva funcion
+    
     return of(true);
   }
   sumarAsientoViaje(idViaje: number): Observable<any> {
@@ -124,7 +124,7 @@ export class ConnectionService {
         }
       );
     });
-    // Modificar a una nueva funcion
+    
     return of(true);
   }
   modificarAsientos(idViaje: number, asientos_nuevos: number): Observable<any> {
@@ -133,6 +133,12 @@ export class ConnectionService {
   getReservas(): Observable<any[]> {
     return this._http.get<any[]>(this.API_URL + 'Reserva?select=*', { headers: this.header, responseType: 'json' });
   }// revisar
+  crearReserva(){
+    
+  }
+  getViajesFromReservaByPasajero(id_pasajero: number){
+    return this._http.get<any>(this.API_URL + `Reserva?id_pasajero=eq.${id_pasajero}&select=id_viaje`, { headers: this.header, responseType: 'json' });
+  }
   
 
 }
