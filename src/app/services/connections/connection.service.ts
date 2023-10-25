@@ -30,7 +30,7 @@ export class ConnectionService {
   // Obtener usuario por email y contraseña
   getUserByEmail(email: string, password: string): Observable<UserData[]> {
     return this._http.get<UserData[]>(
-      this.API_URL + `Users?email=eq.${email}` + '&select=*',
+      this.API_URL + `Users?email=eq.${email}` +`&password=eq.${password}` + '&select=*',
       { headers: this.header, responseType: 'json' }
     ).pipe(
       tap((users: UserData[]) => {
@@ -83,5 +83,35 @@ export class ConnectionService {
   insertViaje(viaje : insertViajeData): Observable<any> {
     return this._http.post<insertViajeData>(this.API_URL+'Viaje', viaje, { headers: this.header, responseType: 'json' });
   }
+  getViajeIdFromReserva(idPasajero: number){
+    //Para sacar el id de viaje de reserva
+  }
+  getViajeById(id_viaje: number){ 
+    return this._http.get<any[]>(this.API_URL + `Viaje?id_viaje=eq.${id_viaje}` + '&select=*', { headers: this.header, responseType: 'json' });
+  }
+  getViajeByConductor(id_conductor: number){
+    return this._http.get<any[]>(this.API_URL + `Viaje?id_conductor=eq.${id_conductor}` + '&select=*', { headers: this.header, responseType: 'json' });
+  } //Obtener viajes por conductor para mostrarlos en el historial
+
+  getAsientosViaje(idViaje: number): Observable<any> {
+    return this._http.get<any>(this.API_URL + `Viaje?id_viaje=eq.${idViaje}&select=Asientos_max`, { headers: this.header, responseType: 'json' }); 
+  }
+  //aun le falta a esta funcion
+  restarAsientoViaje(idViaje: number): Observable<any> {
+    this.getAsientosViaje(idViaje).subscribe(asientos => {
+      asientos = asientos - 1;
+      console.log(asientos);
+    });
+    // Modificar a una nueva funcion
+    return this._http.patch<any>(this.API_URL + `Viaje?id=eq.${idViaje}`, { headers: this.header, responseType: 'json' });
+  }
+  modificarAsientos(idViaje: number, asientos_nuevos: number): Observable<any> {
+    return this._http.patch<any>(this.API_URL + `Viaje?id_viaje=eq.${idViaje}`, { Asientos_max: asientos_nuevos }, { headers: this.header, responseType: 'json' });
+  } //Modificar asientos de un viaje para cuando se haga una reserva funciona como trigger falso
+  getReservas(): Observable<any[]> {
+    return this._http.get<any[]>(this.API_URL + 'Reserva?select=*', { headers: this.header, responseType: 'json' });
+  }// revisar
+  
+
 }
 
