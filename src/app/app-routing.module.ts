@@ -22,8 +22,8 @@ const routes: Routes = [
   {
     path: 'historial',
     loadChildren: () => import('./historial/historial.module').then(m => m.HistorialPageModule),
-  }
-  
+  },
+
 
 ];
 

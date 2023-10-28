@@ -67,7 +67,7 @@ export class ConnectionService {
   registerUser(userData: InsertUserData): Observable<UserData> {
     // Realiza una solicitud POST al backend para registrar al usuario
     return this._http.post<UserData>(
-      this.API_URL, // Esta URL debería ser la correcta para la inserción de usuarios
+      this.API_URL+'Users', // Esta URL debería ser la correcta para la inserción de usuarios
       userData,
       { headers: this.header, responseType: 'json' }
     ).pipe(

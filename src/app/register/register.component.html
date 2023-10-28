@@ -61,15 +61,10 @@
     </ion-row>
     <ion-row class="center-row">
       <ion-col class="center-col">
-        <ion-button class="button-login" (click)="registerUser()" expand="none">
+        <ion-button class="button-login" (click)="registerUser()" expand="block">
           Registrarse
         </ion-button>
       </ion-col>
     </ion-row> 
   </ion-grid>
-  <ion-row class="center-row">
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
-  </ion-row>  
 </ion-content>

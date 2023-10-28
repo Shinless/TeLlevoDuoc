@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CrearViajePageRoutingModule } from './crear-viaje-routing.module';
 
-import { CrearViajePage } from './crear-viaje.page';
+import { CrearViajeComponent } from './crear-viaje.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { CrearViajePage } from './crear-viaje.page';
     IonicModule,
     CrearViajePageRoutingModule
   ],
-  declarations: [CrearViajePage]
+  declarations: [CrearViajeComponent]
 })
 export class CrearViajePageModule {}

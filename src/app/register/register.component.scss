@@ -71,6 +71,10 @@
   .center-row {
     justify-content: center;
   }
+
+  .ion-valid.sc-ion-input-md-h {
+    --highlight-color: #295083;
+  }
   
   /* Clase para centrar el contenido horizontalmente */
   .center-col {
@@ -82,16 +86,4 @@
   ion-button {
     --color: #d6d6d6; /* Cambia el color del texto a blanco (#fff) o al que desees */
   }
-
-  .error-message {
-    background-color: white; /* Fondo blanco */
-    border-radius: 10px; /* Bordes redondeados mayores */
-    display: inline-block; /* Ajusta el cuadro al contenido de texto */
-    padding: 10px; /* Espacio interno */
-    text-align: center; /* Texto centrado */
-    color: #ff0000; /* Color de texto rojo */
-    font-weight: bold; /* Texto en negrita */
-    margin-top: 20px; /* Espacio superior */
-  }
-  
   

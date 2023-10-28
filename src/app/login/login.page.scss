@@ -7,6 +7,10 @@
   position: relative; /* Añade una posición relativa al contenedor */
 }
 
+.ion-valid.sc-ion-input-md-h {
+  --highlight-color: #295083;
+}
+
 
 .logo-img {
   display: block;
@@ -66,6 +70,7 @@ ion-content {
   --color: #fff; /* Cambia el color del texto a blanco (#fff) */
   --border-radius: 10px; /* Agrega bordes redondeados de 10 píxeles (ajusta según tus necesidades) */
 }
+
 
 /* Clase para centrar horizontalmente la fila */
 .center-row {
