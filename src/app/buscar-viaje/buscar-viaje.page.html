@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>buscar-viaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Viajes Disponibles</ion-title>
+    </ion-toolbar>
+  </ion-header>
+ 
+  <ion-list lines="none" *ngIf="items.length > 0" >
+    <div *ngFor="let item of items; let i=index" class="container">
+      
+
+      <ion-item-options side="end">
+        
+      </ion-item-options>
+
+      <ion-item class="container">
+        <ion-avatar slot="start">
+          <img src="assets/img/car-icon.jpg" alt="logo">
+        </ion-avatar>
+        <ion-label>
+          <ion-text class="ion-text-wrap title">Origen: {{item.origen}}</ion-text>
+          <p>
+            <ion-text>Destino: {{item.destino}}</ion-text>
+          </p>
+          <p>
+            <ion-text>Conductor: {{item.id_conductor}}</ion-text>
+          </p>
+          <p>
+          <ion-text style="color: #138A21;"><sup>${{item.precio}} </sup></ion-text>
+          </p>
+          
+        </ion-label>
+        <ion-button color="success" slot="end" (click)="comprarAsiento(item.id_viaje,id_user)" >+</ion-button>
+          
+
+      </ion-item>
+    </div>
+  </ion-list>
+  <!--
+  <ng-container *ngFor="let viaje of viajes">
+    <div *ngIf="viaje.asientosDisponibles > 0; else noAsientos">
+      <p>Origen: {{ viaje.origen }}</p>
+      <p>Destino: {{ viaje.destino }}</p>
+      <p>Asientos disponibles: {{ viaje.asientosDisponibles }}</p>
+    </div>
+    <ng-template #noAsientos>
+      <p>Lo siento, no hay asientos disponibles para este viaje.</p>
+    </ng-template>
+  </ng-container>
+ -->
+</ion-content>

@@ -6,6 +6,7 @@ import { InsertUserData } from 'src/app/models/InsertUserData';
 import { UserDataService } from '../data/user-data.service';
 import { environment } from 'src/environments/environment';
 import { insertViajeData } from 'src/app/models/insertViajeData';
+import { reserva } from 'src/app/models/reserva';
 
 @Injectable({
   providedIn: 'root',
@@ -101,7 +102,6 @@ export class ConnectionService {
     this.getAsientosViaje(idViaje).subscribe(asientos => {
       console.log(asientos[0].Asientos_max);
       let asientos_mod = asientos[0].Asientos_max - 1;
-      //asientos = asientos_mod - 1;
       console.log(asientos_mod);
       this.modificarAsientos(idViaje, asientos_mod).subscribe(
         (data) => {
@@ -133,11 +133,25 @@ export class ConnectionService {
   getReservas(): Observable<any[]> {
     return this._http.get<any[]>(this.API_URL + 'Reserva?select=*', { headers: this.header, responseType: 'json' });
   }// revisar
-  crearReserva(){
+  crearReserva(id_viaje: number, id_pasajero: number){
+    console.log('Creando reserva...');
+    console.log(id_viaje);
+    console.log(id_pasajero);
+    const reserva_nueva = new reserva (id_pasajero, id_viaje, 'confirmado');
+    console.log(reserva_nueva);
+    this.restarAsientoViaje(id_viaje);
+    return this._http.post<reserva>(this.API_URL+'Reserva', reserva_nueva, { headers: this.header, responseType: 'json' });
+    
     
   }
   getViajesFromReservaByPasajero(id_pasajero: number){
     return this._http.get<any>(this.API_URL + `Reserva?id_pasajero=eq.${id_pasajero}&select=id_viaje`, { headers: this.header, responseType: 'json' });
+  }
+  getNombreConductor(id_conductor: number){
+    return this._http.get<any>(this.API_URL + `Users?id=eq.${id_conductor}&select=name,last_name`, { headers: this.header, responseType: 'json' })
+    .pipe(
+      map(response => response[0].name + ' ' + response[0].last_name)
+    );
   }
   
 

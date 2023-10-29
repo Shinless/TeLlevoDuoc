@@ -7,6 +7,10 @@
   import { UserDataService } from '../services/data/user-data.service';
   import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'; // Importa el componente del modal
   import { RegisterComponent } from '../register/register.component';
+  import { StorageService } from '../services/Storage/storage.service';
+  
+
+ 
 
   @Component({
     selector: 'app-login',
@@ -14,6 +18,7 @@
     styleUrls: ['./login.page.scss'],
   })
   export class LoginPage implements OnInit {
+    
     userLoginModal: UserLogin = {
       email: '',
       password: '',
@@ -23,7 +28,8 @@
       private route: Router,
       private modalController: ModalController,
       private connectionService: ConnectionService,
-      private UserDataService: UserDataService
+      private UserDataService: UserDataService,
+      private Storage: StorageService,
     ) {
       this.connectionService.restarAsientoViaje(1).subscribe(
         (data) => {
@@ -35,6 +41,9 @@
     ngOnInit() {
       this.userLoginModalRestart();
     }
+    
+    
+    
 
     async openForgotPasswordModal() {
       console.log('Abriendo modal...');
@@ -58,12 +67,25 @@
       });
       return await modal.present();
     }
+    /*
+    async myFunction() {
+      const result: GetResult = await Preferences.get({ key: 'myKey' });
+      const myString: string = result.value;
+      // Use myString as a string
+    }*/
 
     userLoginSupabase(userLoginInfo: UserLogin): void {
       this.connectionService.getUserByEmail(userLoginInfo.email, userLoginInfo.password).subscribe({
         next: (users) => {
           if (users.length > 0) {
             const user = users[0];
+            //console.log(user.id)
+            this.Storage.guardar('IdUser', user.id);
+            console.log(this.Storage.obtener('IdUser'));
+            
+            //console.log(parseInt(Preferences.get({ key: 'IdUser' })));
+           // user.id.setName(user.id);
+           // this.guardarDato(user.id);
             this.UserDataService.setUser(user); // Almacena los datos del usuario
             const navigationExtras: NavigationExtras = {
               state: { userInfoSend: user },

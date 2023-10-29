@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { UserData } from '../models/UserData';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GmapsService } from '../services/gmaps/gmaps.service';
+import { Preferences } from '@capacitor/preferences';
+import { StorageService } from '../services/Storage/storage.service';
 
 
 @Component({
@@ -17,22 +19,29 @@ export class UserPage implements OnInit {
   map: any; // Objeto del mapa
   Datos_usuario: UserData | undefined; // Datos del usuario actual
   idUserHtmlRouterLink: any; // ID del usuario obtenido de la URL
+  id_user: any; // ID del usuario actual
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private gmaps: GmapsService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private Storage: StorageService,
   ) {
     // Obtiene los datos del usuario de la navegación y el ID de la URL
     this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['userInfoSend'];
     this.idUserHtmlRouterLink = this.activatedRoute.snapshot.params['id'];
+    Storage.obtener('IdUser').then((data) => {
+      this.id_user = parseInt(data?.valueOf()!);
+      console.log(this.id_user);});
     
   }
 
   ngOnInit() {
     // Lógica de inicialización al cargar la página
   }
+
+  
 
   ngAfterViewInit() {
     // Lógica que se ejecuta después de que los elementos de la vista se inicializan
