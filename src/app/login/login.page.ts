@@ -70,13 +70,16 @@
             const user = users[0];
             //console.log(user.id)
             this.Storage.guardar('IdUser', user.id);
+            this.Storage.guardar('NameUser', user.name);
             console.log(this.Storage.obtener('IdUser'));
-            
+            console.log(this.Storage.obtener('NameUser'));
+            /*
             this.UserDataService.setUser(user); // Almacena los datos del usuario
             const navigationExtras: NavigationExtras = {
               state: { userInfoSend: user },
-            };
-            this.route.navigate(['/user', user.id], navigationExtras); // Redirige a la página de usuario con datos del usuario
+            };*/
+            this.route.navigate(['/user']); // Redirige a la página de usuario con datos del usuario
+            
           } else {
             console.log('Usuario no encontrado...');
             this.userLoginModalRestart();

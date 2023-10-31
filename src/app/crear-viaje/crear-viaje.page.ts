@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { insertViajeData } from '../models/insertViajeData';
 import { ConnectionService } from '../services/connections/connection.service';
 import { ToastController } from '@ionic/angular';
+import { StorageService } from '../services/Storage/storage.service';
 
 @Component({
   selector: 'app-crear-viaje',
@@ -9,11 +10,17 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./crear-viaje.page.scss'],
 })
 export class CrearViajeComponent {
-  viajeData: insertViajeData = new insertViajeData(0, 0, 0, '', '');
+  id_user!: number;
+  viajeData: insertViajeData = new insertViajeData(this.id_user, 0, 0, '', '');
 
   constructor(private connectionService: ConnectionService, 
-    private toastController: ToastController
-    ) {}
+    private toastController: ToastController,
+    private storage: StorageService
+    ) {
+      storage.obtener('IdUser').then((data) => {
+        this.id_user = parseInt(data?.valueOf()!);
+        console.log(this.id_user);});
+    }
 
 
   agregarViaje() {

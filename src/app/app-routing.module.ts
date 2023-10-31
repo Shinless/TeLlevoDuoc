@@ -8,7 +8,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'user/:id', // Agrega un segmento dinámico para el ID del usuario
+    path: 'user', // Agrega un segmento dinámico para el ID del usuario
     loadChildren: () => import('./user/user.module').then(m => m.UserPageModule),
   },
   {
@@ -22,7 +22,8 @@ const routes: Routes = [
   {
     path: 'historial',
     loadChildren: () => import('./historial/historial.module').then(m => m.HistorialPageModule),
-  },  {
+  },
+  {
     path: 'buscar-viaje',
     loadChildren: () => import('./buscar-viaje/buscar-viaje.module').then( m => m.BuscarViajePageModule)
   },

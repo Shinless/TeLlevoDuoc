@@ -153,6 +153,9 @@ export class ConnectionService {
         map(response => response[0].name + ' ' + response[0].last_name)
       );
   }
+  getNombreusuario(id_conductor: number): Observable<string> {
+    return this._http.get<any>(this.API_URL + `Users?id=eq.${id_conductor}&select=name`, { headers: this.header, responseType: 'json' });
+  }
   
 
   getHistorialViajes(id_pasajero: number): Observable<any[]> {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GmapsService } from '../services/gmaps/gmaps.service';
 import { Preferences } from '@capacitor/preferences';
 import { StorageService } from '../services/Storage/storage.service';
+import { ConnectionService } from '../services/connections/connection.service';
 
 
 @Component({
@@ -20,28 +21,38 @@ export class UserPage implements OnInit {
   Datos_usuario: UserData | undefined; // Datos del usuario actual
   idUserHtmlRouterLink: any; // ID del usuario obtenido de la URL
   id_user: any; // ID del usuario actual
+  user_name : string = '';
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    //private router: Router,
+    //private activatedRoute: ActivatedRoute,
     private gmaps: GmapsService,
     private renderer: Renderer2,
     private Storage: StorageService,
+    private connectionService: ConnectionService,
   ) {
     // Obtiene los datos del usuario de la navegación y el ID de la URL
-    this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['userInfoSend'];
-    this.idUserHtmlRouterLink = this.activatedRoute.snapshot.params['id'];
-    Storage.obtener('IdUser').then((data) => {
+    //this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['userInfoSend'];
+    //this.idUserHtmlRouterLink = this.activatedRoute.snapshot.params['id'];
+    this.Storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
       console.log(this.id_user);});
-    
+    this.Storage.obtener('NameUser').then((data) => {
+      this.user_name = data || "";
+      console.log(this.user_name);});
   }
 
   ngOnInit() {
     // Lógica de inicialización al cargar la página
   }
 
-  
+  getNombreUsuario(){
+      this.connectionService.getUserById(this.id_user).subscribe(user => {
+      this.Datos_usuario = user;
+      this.user_name = this.Datos_usuario?.name;
+      console.log(this.Datos_usuario);
+    });
+  }
 
   ngAfterViewInit() {
     // Lógica que se ejecuta después de que los elementos de la vista se inicializan
