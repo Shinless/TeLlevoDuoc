@@ -66,7 +66,7 @@ export class ConnectionService {
     return this._http.get<UserData>(this.API_URL + `Users?id=eq.${userId}` + '&select=*', { headers: this.header, responseType: 'json' });
   }
   registerUser(userData: InsertUserData): Observable<UserData> {
-    // Realiza una solicitud POST al backend para registrar al usuario
+    // Realiza una solicitud P  OST al backend para registrar al usuario
     return this._http.post<UserData>(
       this.API_URL+'Users', // Esta URL debería ser la correcta para la inserción de usuarios
       userData,
@@ -147,12 +147,13 @@ export class ConnectionService {
   getViajesFromReservaByPasajero(id_pasajero: number){
     return this._http.get<any>(this.API_URL + `Reserva?id_pasajero=eq.${id_pasajero}&select=id_viaje`, { headers: this.header, responseType: 'json' });
   }
-  getNombreConductor(id_conductor: number){
+  getNombreConductor(id_conductor: number): Observable<string> {
     return this._http.get<any>(this.API_URL + `Users?id=eq.${id_conductor}&select=name,last_name`, { headers: this.header, responseType: 'json' })
-    .pipe(
-      map(response => response[0].name + ' ' + response[0].last_name)
-    );
+      .pipe(
+        map(response => response[0].name + ' ' + response[0].last_name)
+      );
   }
+  
 
   getHistorialViajes(id_pasajero: number): Observable<any[]> {
     return this._http.get<any[]>(this.API_URL + `Viaje?select=*,Reserva(*)&Reserva.id_pasajero=eq.${id_pasajero}&Reserva=not.is.null`, { headers: this.header, responseType: 'json' });

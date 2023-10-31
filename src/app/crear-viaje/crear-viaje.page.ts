@@ -18,10 +18,14 @@ export class CrearViajeComponent {
 
   agregarViaje() {
     // Verifica que la cantidad de asientos sea un número entero entre 1 y 6
+    // Convierte el valor de viajeData.Asientos_max a un número entero
+    this.viajeData.Asientos_max = parseInt(this.viajeData.Asientos_max.toString(), 10);
+
+    // Verifica que la cantidad de asientos sea un número entero entre 1 y 6
     if (
-      !Number.isInteger(this.viajeData.asientos_Max) ||
-      this.viajeData.asientos_Max < 1 ||
-      this.viajeData.asientos_Max > 6
+      !Number.isInteger(this.viajeData.Asientos_max) ||
+      this.viajeData.Asientos_max < 1 ||
+      this.viajeData.Asientos_max > 6
     ) {
       // Muestra un mensaje de error con un toast
       this.presentToast('La cantidad de asientos debe ser un número entero entre 1 y 6.', 'danger');

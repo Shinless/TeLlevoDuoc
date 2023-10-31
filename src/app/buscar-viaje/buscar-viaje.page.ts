@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConnectionService } from '../services/connections/connection.service';
-import { Capacitor } from '@capacitor/core';
 import { StorageService } from '../services/Storage/storage.service';
-
+import { ToastController } from '@ionic/angular'; // Importa ToastController
 
 @Component({
   selector: 'app-buscar-viaje',
@@ -17,55 +16,61 @@ export class BuscarViajePage implements OnInit {
 
   constructor(
     private connectionService: ConnectionService,
-    private storage: StorageService
+    private storage: StorageService,
+    private toastController: ToastController // Inyecta ToastController
   ) { 
     this.listarViajes();
-    console.log(this.conseguirNombre(1));
     storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
-      console.log(this.id_user);});
-    
-    
+    });
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   listarViajes() {
     this.connectionService.getViajes().subscribe(viajes => { 
-        this.items = viajes;
-        console.log(this.items);
+      this.items = viajes;
     });
   }
-  conseguirNombre(id_conductor: number) {
-    return this.connectionService.getNombreConductor(id_conductor);
-  }
-  
-  async comprarAsiento(id_viaje: number, id_pasajero: number) {
 
+  async comprarAsiento(id_viaje: number, id_pasajero: number) {
     this.connectionService.getAsientosViaje(id_viaje).subscribe(asientos => {
-      console.log(asientos[0].Asientos_max);
       if (this.comprobarAsientos(asientos[0].Asientos_max)) {
         this.connectionService.crearReserva(id_viaje, id_pasajero).subscribe(
           (data) => {
-            console.log(data);
-            console.log('Reserva creada');
-          }    
+            this.mostrarToast('Reserva creada con éxito', 'success');
+          },
+          (error) => {
+            console.error('Error al crear la reserva:', error);
+            this.mostrarToast('Error al crear la reserva', 'danger');
+          }
         );
       } else {
-        console.log('No hay asientos disponibles');
+        this.mostrarToast('No hay asientos disponibles', 'danger');
       }
-    });  
+    });
   }
 
   comprobarAsientos(seats: number): boolean {
-    if (seats > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return seats > 0;
   }
 
-
+  async mostrarToast(mensaje: string, color: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 3000,
+      color: color,
+    });
+    toast.present();
+  }
+  
+  async obtenerNombreConductor(id_conductor: number): Promise<string> {
+    try {
+      const nombreConductor = await this.connectionService.getNombreConductor(id_conductor).toPromise();
+      return nombreConductor || 'Nombre no disponible'; // provide a default value for nombreConductor
+    } catch (error) {
+      console.error('Error al obtener el nombre del conductor:', error);
+      return 'Nombre no disponible';
+    }
+  }
 }
