@@ -153,6 +153,11 @@ export class ConnectionService {
       map(response => response[0].name + ' ' + response[0].last_name)
     );
   }
+
+  getHistorialViajes(id_pasajero: number): Observable<any[]> {
+    return this._http.get<any[]>(this.API_URL + `Viaje?select=*,Reserva(*)&Reserva.id_pasajero=eq.${id_pasajero}&Reserva=not.is.null`, { headers: this.header, responseType: 'json' });
+  }
+  
   
 
 }

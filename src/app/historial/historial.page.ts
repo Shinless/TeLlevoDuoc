@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TripData } from '../models/TripData';
+import { ConnectionService } from '../services/connections/connection.service';
+import { StorageService } from '../services/Storage/storage.service';
 
 @Component({
   selector: 'app-historial',
@@ -14,16 +16,29 @@ export class HistorialPage implements OnInit {
     new TripData("admin",5,3,"Viaje a la U",4,4,1000,1,2,[1,2,3,5],1),
     
   ];
-  items = [{id:1, name:'Quilpue', date:'12/12/2019', time:'12:00', driver:'admin', passengers:5, price:1000, rating:4, comments:4, origin:1, destination:2, stops:[1,2,3,5], status:1},
-            {id:2, name:'Siete Hermanas', date:'13/12/2019', time:'12:00', driver:'Esteban', passengers:5, price:2000, rating:4, comments:4, origin:1, destination:2, stops:[1,2,3,5], status:1},
-            {id:3, name:'Viaje a la U', date:'14/12/2019', time:'12:00', driver:'admin', passengers:5, price:1500, rating:4, comments:4, origin:1, destination:2, stops:[1,2,3,5], status:1},
-    
-  ];
+  items: any[] = [];
 
-  constructor() { }
+  id_user!: number;
+
+  constructor(
+    private connectionService: ConnectionService,
+    private storage: StorageService
+  ) { 
+    storage.obtener('IdUser').then((data) => {
+      this.id_user = parseInt(data?.valueOf()!);
+      this.listarHistorialDeViajes(this.id_user);
+      console.log(this.id_user);});
+  }
 
   ngOnInit() {
   }
   dragItem(event: any, index:number){}
+
+  listarHistorialDeViajes(id_user: number) {
+    this.connectionService.getHistorialViajes(id_user).subscribe(viajes => { 
+        this.items = viajes;
+        console.log(this.items);
+    });
+  }
 
 }

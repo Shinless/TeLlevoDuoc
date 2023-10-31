@@ -32,13 +32,6 @@ export class BuscarViajePage implements OnInit {
     
   }
 
-  //listarViajes(items: any[]) : any[] {
-    // Add your code here
-    //this.connectionService.getViajes().subscribe(viajes=> { 
-      //  items = viajes;
-      //  console.log(items); });
-   // return items;
-  //}
   listarViajes() {
     this.connectionService.getViajes().subscribe(viajes => { 
         this.items = viajes;
@@ -50,12 +43,28 @@ export class BuscarViajePage implements OnInit {
   }
   
   async comprarAsiento(id_viaje: number, id_pasajero: number) {
-    this.connectionService.crearReserva(id_viaje, id_pasajero).subscribe(
-      (data) => {
-        console.log(data);
-      } 
-    );
-    console.log('Reserva creada');
+
+    this.connectionService.getAsientosViaje(id_viaje).subscribe(asientos => {
+      console.log(asientos[0].Asientos_max);
+      if (this.comprobarAsientos(asientos[0].Asientos_max)) {
+        this.connectionService.crearReserva(id_viaje, id_pasajero).subscribe(
+          (data) => {
+            console.log(data);
+            console.log('Reserva creada');
+          }    
+        );
+      } else {
+        console.log('No hay asientos disponibles');
+      }
+    });  
+  }
+
+  comprobarAsientos(seats: number): boolean {
+    if (seats > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

@@ -10,7 +10,6 @@
   import { StorageService } from '../services/Storage/storage.service';
   
 
- 
 
   @Component({
     selector: 'app-login',
@@ -31,11 +30,7 @@
       private UserDataService: UserDataService,
       private Storage: StorageService,
     ) {
-      this.connectionService.restarAsientoViaje(1).subscribe(
-        (data) => {
-          console.log(data);
-        }
-      );
+      
     }
 
     ngOnInit() {
@@ -67,12 +62,6 @@
       });
       return await modal.present();
     }
-    /*
-    async myFunction() {
-      const result: GetResult = await Preferences.get({ key: 'myKey' });
-      const myString: string = result.value;
-      // Use myString as a string
-    }*/
 
     userLoginSupabase(userLoginInfo: UserLogin): void {
       this.connectionService.getUserByEmail(userLoginInfo.email, userLoginInfo.password).subscribe({
@@ -83,9 +72,6 @@
             this.Storage.guardar('IdUser', user.id);
             console.log(this.Storage.obtener('IdUser'));
             
-            //console.log(parseInt(Preferences.get({ key: 'IdUser' })));
-           // user.id.setName(user.id);
-           // this.guardarDato(user.id);
             this.UserDataService.setUser(user); // Almacena los datos del usuario
             const navigationExtras: NavigationExtras = {
               state: { userInfoSend: user },
