@@ -52,6 +52,9 @@
           <ion-input labelPlacement="floating" name="origen" type="text" required [(ngModel)]="viajeData.origen">
             <div slot="label">Origen</div>
           </ion-input>
+          <ion-button (click)="obtenerDireccionDesdeCoordenadas()">
+            <ion-icon name="location-outline"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
