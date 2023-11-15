@@ -12,7 +12,9 @@ export class StorageService {
     await Preferences.set({ key, value });
   }
   async obtener(key: string) {
+    console.log(`Llamando a obtener para la clave ${key}`);
     const { value } = await Preferences.get({ key });
+    console.log(`Valor obtenido para la clave ${key}:`, value);
     return value;
   }
   async eliminar(key: string) {

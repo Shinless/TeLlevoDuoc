@@ -29,6 +29,11 @@ export class ConnectionService {
     return this._http.get<UserData[]>(this.API_URL + 'Users?select=*', { headers: this.header, responseType: 'json' });
   }
 
+  getVehiculos(): Observable<car[]> {
+    return this._http.get<car[]>(this.API_URL + 'Vehiculo?select=*', { headers: this.header, responseType: 'json' });
+  }
+
+
   // Verificar si una patente existe
   checkPatenteExists(patente: string): Observable<boolean> {
     return this._http
@@ -144,6 +149,8 @@ export class ConnectionService {
     
     return of(true);
   }
+
+  
   modificarAsientos(idViaje: number, asientos_nuevos: number): Observable<any> {
     return this._http.patch<any>(this.API_URL + `Viaje?id_viaje=eq.${idViaje}`, { Asientos_max: asientos_nuevos }, { headers: this.header, responseType: 'json' });
   } //Modificar asientos de un viaje para cuando se haga una reserva funciona como trigger falso

@@ -16,7 +16,7 @@
   })
   export class CrearViajeComponent {
     id_user!: number;
-    viajeData: insertViajeData = new insertViajeData(this.id_user, 0, 0, '', '');
+    viajeData: insertViajeData = new insertViajeData(0, 0, 0, '', '');
     patenteData: string = '';
     private readonly API_KEY = environment.googleMapsApiKey;
 
@@ -29,12 +29,6 @@
 
   {
     this.inicializarIdUsuario();
-  }
-
-  async inicializarIdUsuario() {
-    const data = await this.storage.obtener('IdUser');
-    this.id_user = parseInt(data?.valueOf()!) || 0;
-    console.log(this.id_user);
   }
 
 
@@ -76,19 +70,26 @@
       }  
     }
 
-    async agregarViaje() {
-      // Verificamos si la patente existe antes de continuar
-      const patenteExists = await this.connectionService.checkPatenteExists(this.patenteData).toPromise();
+    async inicializarIdUsuario() {
+      const data = await this.storage.obtener('IdUser');
+      this.id_user = parseInt(data?.valueOf()!) || 0;
+      console.log(this.id_user);
+    }
 
-      if (!patenteExists) {
+    async agregarViaje() {
+      // Buscar la patente y verificar el user_id
+      const vehiculos = await this.connectionService.getVehiculos().toPromise();
+      const vehiculoEncontrado = vehiculos?.find((vehiculo) => vehiculo.Patente_id === this.patenteData && vehiculo.Id_Dueño === this.id_user);
+    
+      if (!vehiculoEncontrado) {
         // Muestra un mensaje de error con un toast
-        this.presentToast('La patente no existe en la base de datos.', 'danger');
+        this.presentToast('La patente no existe o no coincide con tu usuario.', 'danger');
         return; // Detiene la función
       }
-
+    
       // Verifica que la cantidad de asientos sea un número entero entre 1 y 6
       this.viajeData.Asientos_max = parseInt(this.viajeData.Asientos_max.toString(), 10);
-
+    
       if (
         !Number.isInteger(this.viajeData.Asientos_max) ||
         this.viajeData.Asientos_max < 1 ||
@@ -98,21 +99,30 @@
         this.presentToast('La cantidad de asientos debe ser un número entero entre 1 y 6.', 'danger');
         return; // Detiene la función
       }
-
+    
       // Verifica que el precio sea un número entero no negativo
       if (!Number.isInteger(this.viajeData.precio) || this.viajeData.precio < 0) {
         // Muestra un mensaje de error con un toast
         this.presentToast('El precio debe ser un número entero no negativo.', 'danger');
         return; // Detiene la función
       }
-
+    
       // Agrega más validaciones para los campos origen y destino si es necesario
       if (!this.viajeData.origen || !this.viajeData.destino) {
         // Muestra un mensaje de error con un toast
         this.presentToast('El origen y destino son obligatorios.', 'danger');
         return; // Detiene la función
       }
-
+    
+      // Verifica si el user tiene el mismo ID que el dueño de la patente
+      if (this.id_user !== vehiculoEncontrado.Id_Dueño) {
+        // Muestra un mensaje de error con un toast
+        this.presentToast('No eres el dueño de la patente.', 'danger');
+        return; // Detiene la función
+      }
+    
+      this.viajeData.id_conductor = this.id_user;
+    
       // Si todas las validaciones pasan, procede a agregar el viaje
       this.connectionService.insertViaje(this.viajeData).subscribe(
         (respuesta) => {
@@ -125,8 +135,10 @@
           // Muestra un mensaje de error con un toast
           this.presentToast('Error al insertar el viaje', 'danger');
         }
-      );
+      );  
     }
+    
+    
 
     // Función para mostrar un toast
     async presentToast(message: string, color: string) {
