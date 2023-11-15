@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="tu.paquete">
 
     <application
         android:allowBackup="true"
@@ -33,6 +34,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+
+        <!-- Agrega la siguiente meta-data para la clave de API de Google Maps -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAq-OGa8f9oX7YuTfEJRxb8d-83ncn5miM" />
+
     </application>
 
     <!-- Permissions -->
