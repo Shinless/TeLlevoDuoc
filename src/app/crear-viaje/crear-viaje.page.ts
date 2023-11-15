@@ -12,23 +12,32 @@ import { StorageService } from '../services/Storage/storage.service';
 export class CrearViajeComponent {
   id_user!: number;
   viajeData: insertViajeData = new insertViajeData(this.id_user, 0, 0, '', '');
+  patenteData: string = '';
 
-  constructor(private connectionService: ConnectionService, 
+  constructor(
+    private connectionService: ConnectionService,
     private toastController: ToastController,
     private storage: StorageService
-    ) {
-      storage.obtener('IdUser').then((data) => {
-        this.id_user = parseInt(data?.valueOf()!);
-        console.log(this.id_user);});
+  ) {
+    storage.obtener('IdUser').then((data) => {
+      this.id_user = parseInt(data?.valueOf()!);
+      console.log(this.id_user);
+    });
+  }
+
+  async agregarViaje() {
+    // Verificamos si la patente existe antes de continuar
+    const patenteExists = await this.connectionService.checkPatenteExists(this.patenteData).toPromise();
+
+    if (!patenteExists) {
+      // Muestra un mensaje de error con un toast
+      this.presentToast('La patente no existe en la base de datos.', 'danger');
+      return; // Detiene la función
     }
 
-
-  agregarViaje() {
     // Verifica que la cantidad de asientos sea un número entero entre 1 y 6
-    // Convierte el valor de viajeData.Asientos_max a un número entero
     this.viajeData.Asientos_max = parseInt(this.viajeData.Asientos_max.toString(), 10);
 
-    // Verifica que la cantidad de asientos sea un número entero entre 1 y 6
     if (
       !Number.isInteger(this.viajeData.Asientos_max) ||
       this.viajeData.Asientos_max < 1 ||
@@ -38,21 +47,21 @@ export class CrearViajeComponent {
       this.presentToast('La cantidad de asientos debe ser un número entero entre 1 y 6.', 'danger');
       return; // Detiene la función
     }
-  
+
     // Verifica que el precio sea un número entero no negativo
     if (!Number.isInteger(this.viajeData.precio) || this.viajeData.precio < 0) {
       // Muestra un mensaje de error con un toast
       this.presentToast('El precio debe ser un número entero no negativo.', 'danger');
       return; // Detiene la función
     }
-  
+
     // Agrega más validaciones para los campos origen y destino si es necesario
     if (!this.viajeData.origen || !this.viajeData.destino) {
       // Muestra un mensaje de error con un toast
       this.presentToast('El origen y destino son obligatorios.', 'danger');
       return; // Detiene la función
     }
-  
+
     // Si todas las validaciones pasan, procede a agregar el viaje
     this.connectionService.insertViaje(this.viajeData).subscribe(
       (respuesta) => {
@@ -67,7 +76,7 @@ export class CrearViajeComponent {
       }
     );
   }
-  
+
   // Función para mostrar un toast
   async presentToast(message: string, color: string) {
     const toast = await this.toastController.create({
@@ -77,4 +86,4 @@ export class CrearViajeComponent {
     });
     toast.present();
   }
-}  
+}

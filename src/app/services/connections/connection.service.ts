@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map, of, tap } from 'rxjs';
 import { UserData } from 'src/app/models/UserData';
+import { car } from 'src/app/models/car';
 import { InsertUserData } from 'src/app/models/InsertUserData';
 import { UserDataService } from '../data/user-data.service';
 import { environment } from 'src/environments/environment';
@@ -28,6 +29,33 @@ export class ConnectionService {
     return this._http.get<UserData[]>(this.API_URL + 'Users?select=*', { headers: this.header, responseType: 'json' });
   }
 
+  // Verificar si una patente existe
+  checkPatenteExists(patente: string): Observable<boolean> {
+    return this._http
+      .get<car[]>(
+        this.API_URL + `Vehiculo?Patente_id=eq.${patente}` + '&select=Patente_id',
+        { headers: this.header, responseType: 'json' }
+      )
+      .pipe(
+        map((result) => {
+          return result.length > 0;
+        })
+      );
+  }
+
+  checkEmailExists(email: string): Observable<boolean> {
+    return this._http
+      .get<UserData[]>(
+        this.API_URL + `Users?email=eq.${email}` + '&select=email',
+        { headers: this.header, responseType: 'json' }
+      )
+      .pipe(
+        map((users: UserData[]) => {
+          return users.length > 0;
+        })
+      );
+  }
+
   // Obtener usuario por email y contraseña
   getUserByEmail(email: string, password: string): Observable<UserData[]> {
     return this._http.get<UserData[]>(
@@ -43,18 +71,7 @@ export class ConnectionService {
     );
   }
 
-  checkEmailExists(email: string): Observable<boolean> {
-    return this._http
-      .get<UserData[]>(
-        this.API_URL + `Users?email=eq.${email}` + '&select=email',
-        { headers: this.header, responseType: 'json' }
-      )
-      .pipe(
-        map((users: UserData[]) => {
-          return users.length > 0;
-        })
-      );
-  }
+
 
   // Insertar un nuevo usuario
   insertUser(user: InsertUserData): Observable<InsertUserData> {
