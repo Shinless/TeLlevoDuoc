@@ -5,6 +5,7 @@ import { GmapsService } from '../services/gmaps/gmaps.service';
 import { Preferences } from '@capacitor/preferences';
 import { StorageService } from '../services/Storage/storage.service';
 import { ConnectionService } from '../services/connections/connection.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class UserPage implements OnInit {
     private renderer: Renderer2,
     private Storage: StorageService,
     private connectionService: ConnectionService,
+    private geolocation: Geolocation
   ) {
     // Obtiene los datos del usuario de la navegación y el ID de la URL
     //this.Datos_usuario = this.router.getCurrentNavigation()?.extras.state?.['userInfoSend'];
@@ -42,7 +44,10 @@ export class UserPage implements OnInit {
       console.log(this.user_name);});
   }
 
-  ngOnInit() {
+  ngOnInit(
+
+    
+  ) {
     // Lógica de inicialización al cargar la página
   }
 
@@ -61,11 +66,15 @@ export class UserPage implements OnInit {
 
   async loadMap() {
     try {
+
+        const coordinates = await this.geolocation.getCurrentPosition();
+        const lat = coordinates.coords.latitude;
+        const lng = coordinates.coords.longitude;
       // Carga el módulo de Google Maps
       let googleMaps: any = await this.gmaps.loadGoogleMaps();
       this.googleMaps = googleMaps;
       const mapEl = this.mapElementRef.nativeElement; // Elemento del mapa en la plantilla
-      const location = new googleMaps.LatLng(this.center.lat, this.center.lng); // Ubicación del mapa
+      const location = new googleMaps.LatLng(lat, lng); // Ubicación del mapa
       this.map = new googleMaps.Map(mapEl, {
         center: location,
         zoom: 15
