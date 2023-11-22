@@ -41,8 +41,9 @@ export class BuscarViajePage implements OnInit {
             this.mostrarToast('Reserva creada con éxito', 'success');
           },
           (error) => {
+            
             console.error('Error al crear la reserva:', error);
-            this.mostrarToast('Error al crear la reserva', 'danger');
+            this.mostrarToast(error, 'danger');
           }
         );
       } else {
