@@ -59,7 +59,7 @@ export class BuscarViajePage implements OnInit {
   async mostrarToast(mensaje: string, color: string) {
     const toast = await this.toastController.create({
       message: mensaje,
-      duration: 3000,
+      duration: 1000,
       color: color,
     });
     toast.present();
