@@ -52,7 +52,7 @@
           <ion-input labelPlacement="floating" name="origen" type="text" required [(ngModel)]="viajeData.origen">
             <div slot="label">Origen</div>
           </ion-input>
-          <ion-button (click)="obtenerDireccionDesdeCoordenadas()">
+          <ion-button (click)="abrirModalOrigen()">
             <ion-icon name="location-outline"></ion-icon>
           </ion-button>
         </ion-item>
@@ -64,13 +64,16 @@
           <ion-input labelPlacement="floating" name="destino" type="text" required [(ngModel)]="viajeData.destino">
             <div slot="label">Destino</div>
           </ion-input>
+          <ion-button (click)="abrirModalDestino()">
+            <ion-icon name="location-outline"></ion-icon>
+          </ion-button>
         </ion-item>
-      </ion-col>
+      </ion-col>   
     </ion-row>
     <ion-row class="center-row">
       <ion-col class="center-col">
-        <ion-button class="button-login" expand="none" (click)="agregarViaje()">
-          Crear Viaje
+        <ion-button class="button-login" expand="full" (click)="agregarViaje()">
+          Crear Viaje       
         </ion-button>
       </ion-col>
     </ion-row>

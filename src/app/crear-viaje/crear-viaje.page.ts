@@ -5,9 +5,8 @@
   import { StorageService } from '../services/Storage/storage.service';
   import { Geolocation } from '@ionic-native/geolocation/ngx';
   import { environment } from 'src/environments/environment';
-
-
-
+  import { ModalController } from '@ionic/angular';
+  import { LocationComponent } from '../location/location.component';
 
   @Component({
     selector: 'app-crear-viaje',
@@ -21,44 +20,71 @@
     private readonly API_KEY = environment.googleMapsApiKey;
 
     constructor(
-      private connectionService: ConnectionService,
       private toastController: ToastController,
       private storage: StorageService,
-      private geolocation: Geolocation
-  )
+      private geolocation: Geolocation,
+      private modalController: ModalController,
+      private connectionService: ConnectionService,
+    ) {
+      this.inicializarIdUsuario();
+    }
 
-  {
-    this.inicializarIdUsuario();
-  }
+    async abrirModalOrigen() {
+      await this.openLocationModal('origen');
+    }
 
+    async abrirModalDestino() {
+      await this.openLocationModal('destino');
+    }
+
+    async openLocationModal(tipoUbicacion: string) {
+      const modal = await this.modalController.create({
+        component: LocationComponent,
+        componentProps: {
+          tipoUbicacion: tipoUbicacion,
+        },
+      });
+  
+      modal.onDidDismiss().then((data) => {
+        if (data && data.data) {
+          console.log(data.data);
+  
+          // Aquí puedes manejar los datos recibidos del modal según sea necesario
+          if (tipoUbicacion === 'origen') {
+            this.viajeData.origen = data.data.selectedLocation.address;
+          } else if (tipoUbicacion === 'destino') {
+            this.viajeData.destino = data.data.selectedLocation.address;
+          }
+        }
+      });
+
+      return await modal.present();
+    }
 
     obtenerUbicacionUsuario() {
       this.geolocation.getCurrentPosition().then((resp) => {
-        // resp.coords.latitude y resp.coords.longitude contienen las coordenadas
         const lat = resp.coords.latitude;
         const lng = resp.coords.longitude;
-    
-        // Utiliza lat y lng como origen en tu solicitud de direcciones
+
         this.viajeData.origen = `${lat},${lng}`;
       }).catch((error) => {
         console.error('Error al obtener la ubicación', error);
       });
     }
 
-
     async obtenerDireccionDesdeCoordenadas() {
       const coordinates = await this.geolocation.getCurrentPosition();
       const lat = coordinates.coords.latitude;
       const lng = coordinates.coords.longitude;
-      const apiKey = this.API_KEY;  // Reemplaza con tu clave
-  
+      const apiKey = this.API_KEY;
+
       const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
-  
+
       try {
         const response = await fetch(url);
         const data = await response.json();
         console.log('Respuesta de geocodificación inversa:', data);
-      
+
         if (data.status === 'OK') {
           const direccion = data.results[0].formatted_address;
           this.viajeData.origen = direccion;
@@ -67,7 +93,7 @@
         }
       } catch (error) {
         console.error('Error al obtener la dirección', error);
-      }  
+      }
     }
 
     async inicializarIdUsuario() {
@@ -139,13 +165,13 @@
     }
     
     
+    
 
-    // Función para mostrar un toast
     async presentToast(message: string, color: string) {
       const toast = await this.toastController.create({
         message: message,
-        duration: 3000, // Duración del toast en milisegundos
-        color: color, // Color del toast (puede ser 'success', 'danger', etc.)
+        duration: 3000,
+        color: color,
       });
       toast.present();
     }

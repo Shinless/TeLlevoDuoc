@@ -1,3 +1,15 @@
-<p>
-  location works!
-</p>
+<div class="contenedor">
+  <div class="centrar-mapa">
+    <div class="map" #map>
+      <!-- Contenido del mapa -->
+    </div>
+  </div>
+
+  <div class="otros-elementos">
+    <div>
+      <!-- Puedes agregar otros elementos aquí -->
+      <input #addressInput type="text" placeholder="Ingrese la dirección" (input)="handleAddressInputChange()" />
+      <button (click)="confirmarUbicacion()">Confirmar Ubicación</button>
+    </div>
+  </div>
+</div>

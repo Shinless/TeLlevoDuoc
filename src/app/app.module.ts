@@ -13,7 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent, ForgotPasswordComponent, RegisterComponent], // Agrega ForgotPasswordComponent aquí
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,HttpClientModule], // Agrega FormsModule aquí
+  imports: [BrowserModule,IonicModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,HttpClientModule], // Agrega FormsModule aquí
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GoogleMaps,
