@@ -2,23 +2,28 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { GoogleMaps } from '@ionic-native/google-maps/ngx'; // Importa el módulo de Google Maps si es necesario
-import { FormsModule } from '@angular/forms'; // Importa FormsModule para el uso de ngModel
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'; // Agrega la importación de ForgotPasswordComponent
-import { RegisterComponent } from './register/register.component';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { GoogleMaps } from '@ionic-native/google-maps/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, ForgotPasswordComponent, RegisterComponent], // Agrega ForgotPasswordComponent aquí
-  imports: [BrowserModule,IonicModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,HttpClientModule], // Agrega FormsModule aquí
+  declarations: [AppComponent, ForgotPasswordComponent, RegisterComponent],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
+  ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GoogleMaps,
     Geolocation,
-     // Agrega GoogleMaps si es necesario
   ],
   bootstrap: [AppComponent],
 })

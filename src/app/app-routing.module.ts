@@ -27,6 +27,11 @@ const routes: Routes = [
     path: 'buscar-viaje',
     loadChildren: () => import('./buscar-viaje/buscar-viaje.module').then( m => m.BuscarViajePageModule)
   },
+  {
+    path: 'ruta',
+    loadChildren: () => import('./viaje/viaje.module').then( m => m.ViajePageModule)
+  },
+
 
 
 

@@ -1,8 +1,12 @@
+// gmaps.service.ts
+
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
+declare var google: any;
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GmapsService {
 
@@ -12,25 +16,45 @@ export class GmapsService {
     const win = window as any;
     const googleModule = win.google;
     if (googleModule && googleModule.maps) {
-      // google is already loaded Pregunrtar si ya esta cargado
       return Promise.resolve(googleModule.maps);
     }
     return new Promise((resolve, reject) => {
-      const script = document.createElement('script'); //Se crea un script para cargar el Maps
+      const script = document.createElement('script');
       script.src = 
             'https://maps.googleapis.com/maps/api/js?key=' + 
-            environment.googleMapsApiKey; //Se crea Url para cargar el Maps
-      script.async = true; //Se carga de forma asincrona 
-      script.defer = true; //Se carga de forma diferida
-      document.body.appendChild(script); //Se agrega el script al body
-      script.onload = () => { //Se crea un evento onload para cuando se cargue el script
-        const loadedGoogleModule = win.google; //Se crea una variable para guardar el modulo de google
-        if (loadedGoogleModule && loadedGoogleModule.maps) { //Se pregunta si el modulo de google y el maps estan cargados
-          resolve(loadedGoogleModule.maps); //Se resuelve la promesa
+            environment.googleMapsApiKey;
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+      script.onload = () => {
+        const loadedGoogleModule = win.google;
+        if (loadedGoogleModule && loadedGoogleModule.maps) {
+          resolve(loadedGoogleModule.maps);
         } else {
-          reject('Google maps SDK not available.'); //Se rechaza la promesa en caso de que no este cargado
+          reject('Google maps SDK not available.');
         }
       };
+    });
+  }
+
+  async getDirections(origin: any, destination: any): Promise<any> {
+    const directionsService = new google.maps.DirectionsService();
+
+    return new Promise((resolve, reject) => {
+      directionsService.route(
+        {
+          origin,
+          destination,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response: any, status: any) => {
+          if (status === 'OK') {
+            resolve(response);
+          } else {
+            reject(status);
+          }
+        }
+      );
     });
   }
 }
