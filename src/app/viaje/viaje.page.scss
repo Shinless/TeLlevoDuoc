@@ -1,34 +1,12 @@
-.profile-picture {
-    width: 25%;
-    height: 25%;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 100%;
-  }
-  
-  .botones-viajes {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Añade esto para centrar horizontalmente */
-    margin: 20px auto;
-    background-color: #5BC5DB;
-    flex: 1; /* Hace que todos los elementos flexibles tengan el mismo tamaño */
-  }
+
   
 
-  .custom-button {
-    border-radius: 20px; /* Borde redondeado */
-    background-color: transparent; /* Fondo transparente */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
+
   
   .map {
     position: absolute;
-    width: 90%;
-    height: 50%;
+    width: 100%; /* Cambiado al 100% para ocupar todo el ancho */
+    height: 50vh; /* 50% de la altura de la ventana */
     background-color: transparent;
     opacity: 0;
     transition: opacity 150ms ease-in;
@@ -50,6 +28,7 @@
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
+    height: 100vh; /* Ajusta la altura al 100% de la ventana */
   }
   
   .background::before {

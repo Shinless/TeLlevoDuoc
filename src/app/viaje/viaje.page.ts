@@ -1,44 +1,41 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+// viaje.page.ts
+import { Component, ElementRef, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GmapsService } from '../services/gmaps/gmaps.service';
-import { StorageService } from '../services/Storage/storage.service';
-import { UserData } from '../models/UserData';
-import { interval } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { interval, Subject } from 'rxjs';
+import { takeWhile, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.page.html',
-  styleUrls: ['./user.page.scss'],
+  selector: 'app-viaje',
+  templateUrl: './viaje.page.html',
+  styleUrls: ['./viaje.page.scss'],
 })
-export class UserPage {
+export class ViajePage implements OnDestroy {
   @ViewChild('map', { static: true })
   mapElementRef!: ElementRef;
   googleMaps: any;
   map: any;
-  Datos_usuario: UserData | undefined;
-  id_user: any;
-  user_name: string = '';
-  userMarker: any; // Variable para almacenar el marcador
+  userMarker: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  destinationCoords: any;
+  lat: number = -33.0228;
+  lng: number = -71.5519;
+  origin: any = { lat: -33.022785, lng: -71.551908 };
+  destination: any = { lat: -33.0195464, lng: -71.5576581 };
 
   constructor(
     private gmaps: GmapsService,
     private renderer: Renderer2,
-    private storage: StorageService,
-    private geolocation: Geolocation
-  ) {
-    this.storage.obtener('IdUser').then((data) => {
-      this.id_user = parseInt(data?.valueOf()!);
-      console.log(this.id_user);
-    });
-    this.storage.obtener('NameUser').then((data) => {
-      this.user_name = data || '';
-      console.log(this.user_name);
-    });
-  }
+    private geolocation: Geolocation,
+  ) {}
 
   ngOnInit() {
     this.loadMap();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   async loadMap() {
@@ -70,14 +67,16 @@ export class UserPage {
         animation: googleMaps.Animation.DROP,
       });
 
-      // Actualizar la ubicación y centrar el mapa cada 2 segundos
+      // Actualizar la ubicación, centrar el mapa y obtener una ruta cada 2 segundos
       interval(2000)
         .pipe(
-          takeWhile(() => true)
+          takeWhile(() => true),
+          takeUntil(this.destroy$)
         )
         .subscribe(async () => {
           await this.trackLocation();
           this.centerMap();
+          this.getDirections();
         });
     } catch (e) {
       console.log('Error al cargar el mapa:', e);
@@ -110,5 +109,20 @@ export class UserPage {
         this.map.panTo(markerPosition);
       }
     }
+  }
+
+  async getDirections() {
+    try {
+      const directions = await this.gmaps.getDirections(this.origin, this.destination);
+      this.displayRoute(directions);
+    } catch (error) {
+      console.error('Error al obtener direcciones:', error);
+    }
+  }
+
+  displayRoute(directions: any) {
+    const directionsRenderer = new this.googleMaps.DirectionsRenderer();
+    directionsRenderer.setMap(this.map);
+    directionsRenderer.setDirections(directions);
   }
 }
