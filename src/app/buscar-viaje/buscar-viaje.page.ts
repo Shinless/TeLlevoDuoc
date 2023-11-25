@@ -13,6 +13,7 @@ export class BuscarViajePage implements OnInit {
   items: any[] = [];
   nombre: string | undefined;
   id_user!: number;
+  aux : any;
 
   constructor(
     private connectionService: ConnectionService,
@@ -22,6 +23,7 @@ export class BuscarViajePage implements OnInit {
     this.listarViajes();
     this.storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
+      this.aux = data;
     });
   }
 
