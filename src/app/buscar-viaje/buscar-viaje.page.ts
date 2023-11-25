@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { ConnectionService } from '../services/connections/connection.service';
 import { StorageService } from '../services/Storage/storage.service';
 import { ToastController } from '@ionic/angular'; // Importa ToastController
@@ -21,13 +21,19 @@ export class BuscarViajePage implements OnInit {
     private toastController: ToastController // Inyecta ToastController
   ) { 
     this.listarViajes();
-    this.storage.obtener('IdUser').then((data) => {
+    //this.id_user = await lastValueFrom(this.storage.obtener('IdUser'))
+    //this.storage.obtener('IdUser').then((data) => {
+     // this.id_user = parseInt(data?.valueOf()!);
+     // this.aux = data;
+    //});
+  }
+
+  async ngOnInit() {
+      await this.storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
       this.aux = data;
     });
   }
-
-  ngOnInit() {}
 
   listarViajes() {
     this.connectionService.getViajes().subscribe(viajes => { 
