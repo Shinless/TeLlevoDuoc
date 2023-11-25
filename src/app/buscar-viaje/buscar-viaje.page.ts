@@ -20,7 +20,7 @@ export class BuscarViajePage implements OnInit {
     private toastController: ToastController // Inyecta ToastController
   ) { 
     this.listarViajes();
-    storage.obtener('IdUser').then((data) => {
+    this.storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
     });
   }

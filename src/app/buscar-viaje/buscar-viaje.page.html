@@ -35,8 +35,15 @@
             <ion-text>Conductor: {{item.id_conductor}}</ion-text>
           </p>
           <p>
+            <ion-text>Asientos: {{item.Asientos_max}}</ion-text>
+          </p>
+          <p>
           <ion-text style="color: #138A21;"><sup>${{item.precio}} </sup></ion-text>
           </p>
+          <p>
+            <ion-text style="color: #138A21;"><sup>${{id_user}} </sup></ion-text>
+          </p>
+
           
         </ion-label>
         <ion-button color="success" slot="end" (click)="comprarAsiento(item.id_viaje,id_user)" >+</ion-button>
