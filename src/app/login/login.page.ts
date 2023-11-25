@@ -69,7 +69,7 @@
           if (users.length > 0) {
             const user = users[0];
             //console.log(user.id)
-            this.Storage.guardar('IdUser', user.id);
+            this.Storage.guardar('IdUser', user.id.toString());
             this.Storage.guardar('NameUser', user.name);
             console.log(this.Storage.obtener('IdUser'));
             console.log(this.Storage.obtener('NameUser'));

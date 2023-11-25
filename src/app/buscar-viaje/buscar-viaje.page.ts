@@ -31,7 +31,11 @@ export class BuscarViajePage implements OnInit {
   async ngOnInit() {
       await this.storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
-      this.aux = data;
+      //this.aux = data;
+    });
+    this.storage.obtener('NameUser').then((data) => {
+      this.aux = data || '';
+      
     });
   }
 
