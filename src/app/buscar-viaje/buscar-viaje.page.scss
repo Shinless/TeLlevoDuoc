@@ -1,33 +1,53 @@
-ion-content {
-    ion-list{
-        --background: transparent;
-        padding: 15px;
-        .container{
-            margin: 0 3vh;
-            --inner-padding-end: 15px;
-            margin-bottom: 10px;
-            ion-item.container {
-                border-radius: 20px;
-                --padding-start: 5px;
-                --inner-padding-end: 5px;
-                --ion-background-color: black;
-            }
-            ion-avatar {
-                width: 50px;
-                height: 50px;
-                background-color: transparent;
-            }
-            ion-label{
-                padding-top: 15px;
-                padding-bottom: 15px;
-                ion-text.title{
-                    color: white;
-                    font-size: 1.2rem;
-                    font-weight: 600;
-                }
-
-            }
-
-        }
-    }
-} 
+.background {
+    background-image: url('../../assets/img/fondo.jpg');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+  }
+  
+  .background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  ion-content {
+    --ion-background-color: transparent;
+    --ion-text-color: #fff;
+  }
+  
+  .center-col {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .custom-list {
+    width: 70%;
+    margin: 0 auto;
+  }
+  
+  .custom-list-item {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-avatar {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .custom-label {
+    margin-left: 10px;
+  }
+  
+  ion-button {
+    --color: #d6d6d6;
+  }
+  

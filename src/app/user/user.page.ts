@@ -64,8 +64,8 @@ export class UserPage {
         map: this.map,
         title: 'Ubicación actual',
         icon: {
-          url: 'assets/img/car-icon.png',
-          scaledSize: new googleMaps.Size(60, 60),
+          url: 'assets/icon/pin.png',
+          scaledSize: new googleMaps.Size(40, 60),
         },
         animation: googleMaps.Animation.DROP,
       });
