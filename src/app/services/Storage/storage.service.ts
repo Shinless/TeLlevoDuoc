@@ -9,6 +9,7 @@ export class StorageService {
   constructor() { }
 
   async guardar(key: string, value: any) {
+    
     await Preferences.set({ key, value });
   }
   async obtener(key: string) {
