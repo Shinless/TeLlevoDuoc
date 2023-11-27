@@ -1,9 +1,10 @@
-// viaje.page.ts
 import { Component, ElementRef, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GmapsService } from '../services/gmaps/gmaps.service';
 import { interval, Subject } from 'rxjs';
 import { takeWhile, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { ConnectionService } from '../services/connections/connection.service';
 
 @Component({
   selector: 'app-viaje',
@@ -17,20 +18,28 @@ export class ViajePage implements OnDestroy {
   map: any;
   userMarker: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  destinationCoords: any;
-  lat: number = -33.0228;
-  lng: number = -71.5519;
-  origin: any = { lat: -33.022785, lng: -71.551908 };
-  destination: any = { lat: -33.0195464, lng: -71.5576581 };
+  destination: any;
+  centerMapAutomatically: boolean = true;
+
 
   constructor(
     private gmaps: GmapsService,
     private renderer: Renderer2,
     private geolocation: Geolocation,
+    private route: ActivatedRoute,
+    private connectionService: ConnectionService
   ) {}
 
   ngOnInit() {
-    this.loadMap();
+    this.route.paramMap.subscribe(params => {
+      const tripIdString = params.get('id_viaje');
+      if (tripIdString !== null) {
+        const tripId = +tripIdString;
+        this.loadMap(tripId);
+      } else {
+        console.error('El parámetro "id_viaje" es nulo.');
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -38,7 +47,7 @@ export class ViajePage implements OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  async loadMap() {
+  async loadMap(tripId: number) {
     try {
       const coordinates = await this.geolocation.getCurrentPosition();
       const lat = coordinates.coords.latitude;
@@ -51,7 +60,7 @@ export class ViajePage implements OnDestroy {
 
       this.map = new googleMaps.Map(mapEl, {
         center: location,
-        zoom: 15, // Adjust the zoom level as needed
+        zoom: 15,
       });
 
       this.renderer.addClass(mapEl, 'visible');
@@ -67,17 +76,22 @@ export class ViajePage implements OnDestroy {
         animation: googleMaps.Animation.DROP,
       });
 
-      // Actualizar la ubicación, centrar el mapa y obtener una ruta cada 2 segundos
       interval(2000)
-        .pipe(
-          takeWhile(() => true),
-          takeUntil(this.destroy$)
-        )
-        .subscribe(async () => {
-          await this.trackLocation();
-          this.centerMap();
-          this.getDirections();
-        });
+      .pipe(
+        takeWhile(() => true),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(async () => {
+        await this.trackLocation();
+        // this.centerMap(); // Comenta o elimina esta línea
+        this.getDirections();
+      });
+    
+
+      this.connectionService.getViajeById(tripId).subscribe((tripDetails: any) => {
+        console.log('Detalles del viaje:', tripDetails);
+        this.handleTripDetails(tripDetails);
+      });
     } catch (e) {
       console.log('Error al cargar el mapa:', e);
     }
@@ -96,33 +110,74 @@ export class ViajePage implements OnDestroy {
   updateMap(lat: number, lng: number) {
     if (this.map && this.userMarker) {
       const newLocation = new this.googleMaps.LatLng(lat, lng);
-
-      this.map.panTo(newLocation);
       this.userMarker.setPosition(newLocation);
     }
   }
+  
 
   centerMap() {
     if (this.map && this.userMarker) {
       const markerPosition = this.userMarker.getPosition();
       if (markerPosition) {
-        this.map.panTo(markerPosition);
+        if (this.centerMapAutomatically) {
+          this.map.panTo(markerPosition);
+        }
       }
     }
   }
+  
 
   async getDirections() {
     try {
-      const directions = await this.gmaps.getDirections(this.origin, this.destination);
-      this.displayRoute(directions);
+      if (this.destination) {
+        const originCoords = {
+          lat: this.userMarker.getPosition().lat(),
+          lng: this.userMarker.getPosition().lng()
+        };
+  
+        const directions = await this.gmaps.getDirections(originCoords, this.destination);
+        this.displayRoute(directions);
+  
+        // Desactivar el centrado automático después de mostrar la ruta
+        this.centerMapAutomatically = false;
+      }
     } catch (error) {
       console.error('Error al obtener direcciones:', error);
     }
   }
+  
 
   displayRoute(directions: any) {
     const directionsRenderer = new this.googleMaps.DirectionsRenderer();
     directionsRenderer.setMap(this.map);
     directionsRenderer.setDirections(directions);
+  }
+
+  private async handleTripDetails(tripDetails: any[]) {
+    try {
+      if (tripDetails.length > 0) {
+        const tripDetail = tripDetails[0]; // Tomar el primer elemento del array
+  
+        const origen = tripDetail.origen;
+        const destino = tripDetail.destino;
+  
+        console.log('Origen:', origen);
+        console.log('Destino:', destino);
+  
+        const origenCoordinates = await this.gmaps.geocodeAddress(origen);
+        const destinoCoordinates = await this.gmaps.geocodeAddress(destino);
+  
+        console.log('Coordenadas de origen:', origenCoordinates);
+        console.log('Coordenadas de destino:', destinoCoordinates);
+  
+        this.destination = destinoCoordinates;
+  
+        this.getDirections();
+      } else {
+        console.error('No se encontraron detalles de viaje.');
+      }
+    } catch (error) {
+      console.error('Error al procesar los detalles del viaje:', error);
+    }
   }
 }

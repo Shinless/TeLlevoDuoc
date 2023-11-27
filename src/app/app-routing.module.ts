@@ -8,12 +8,12 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'user', // Agrega un segmento dinámico para el ID del usuario
+    path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserPageModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule), // Usar LoginPageModule
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
   },
   {
     path: 'viaje',
@@ -28,14 +28,9 @@ const routes: Routes = [
     loadChildren: () => import('./buscar-viaje/buscar-viaje.module').then( m => m.BuscarViajePageModule)
   },
   {
-    path: 'ruta',
+    path: 'ruta/:id_viaje',
     loadChildren: () => import('./viaje/viaje.module').then( m => m.ViajePageModule)
   },
-
-
-
-
-
 ];
 
 @NgModule({
