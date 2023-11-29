@@ -31,14 +31,13 @@
             </p>
             <p>
               <ion-text style="color: #5BC5DB;"><sup>${{item.precio}}</sup></ion-text>
-              <ion-text style="color: #5BC5DB;">{{item.Reserva[0].id_reserva}}<sup></sup></ion-text>
             </p>
           </ion-label>
         </ion-item>
         <ion-button (click)="verRuta(item)" expand="full" class="custom-button">
           Ver Ruta
         </ion-button>
-        <ion-button (click)="eliminarReserva(item.id_reserva)" expand="full" class="custom-button-delete">
+        <ion-button (click)="eliminarReserva(item.Reserva[0].id_reserva)" expand="full" class="custom-button-delete">
           Eliminar Reserva
         </ion-button>
         
