@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { ConnectionService } from '../services/connections/connection.service';
 import { StorageService } from '../services/Storage/storage.service';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-historial',
@@ -18,7 +19,8 @@ export class HistorialPage implements OnInit {
     private connectionService: ConnectionService,
     private storage: StorageService,
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private toastController: ToastController
   ) { 
     storage.obtener('IdUser').then((data) => {
       this.id_user = parseInt(data?.valueOf()!);
@@ -51,4 +53,27 @@ export class HistorialPage implements OnInit {
     // Redirigir a la página de viaje con el ID del viaje
     this.router.navigate(['/ruta', item.id_viaje]);
   }
+
+  async eliminarReserva(id_reserva: number) {
+    this.connectionService.deleteReserva(id_reserva).subscribe(
+      (data) => {
+        this.mostrarToast('Reserva eliminada con éxito', 'success');
+      },
+      (error) => {
+        
+        console.error('Error al eliminar la reserva:', error);
+        this.mostrarToast(error, 'danger');
+      }
+    );
+  }
+
+  async mostrarToast(mensaje: string, color: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 1000,
+      color: color,
+    });
+    toast.present();
+  }
+
 }
