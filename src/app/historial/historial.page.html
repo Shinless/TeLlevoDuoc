@@ -31,6 +31,7 @@
             </p>
             <p>
               <ion-text style="color: #5BC5DB;"><sup>${{item.precio}}</sup></ion-text>
+              <ion-text style="color: #5BC5DB;">{{item.Reserva[0].id_reserva}}<sup></sup></ion-text>
             </p>
           </ion-label>
         </ion-item>
@@ -38,7 +39,7 @@
           Ver Ruta
         </ion-button>
         <ion-button (click)="eliminarReserva(item.id_reserva)" expand="full" class="custom-button-delete">
-          Eliminar Reserva{{item.reserva[0].id_reserva}}
+          Eliminar Reserva
         </ion-button>
         
       </div>
